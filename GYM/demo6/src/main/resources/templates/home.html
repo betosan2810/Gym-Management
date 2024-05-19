@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <title>Trang chủ</title>
+    <link rel="shortcut icon" href="https://cali.vn/themes/cfyc/assets/static/favicon/favicon.svg">
+
+
+    <!-- icon -->
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- SLICK SLIDER -->
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <!-- FONT HELGA -->
+    <style>
+        .img-place:hover {
+            cursor: pointer !important;
+        }
+        .cchv{
+            min-height: 550px;
+            position: relative;
+            background-size: cover !important;
+            overflow: hidden;
+            object-fit: cover;
+            background:url("https://citigym.com.vn/themes/citigym/images/banners/news-banner.jpg")
+        }
+        .cchv::before{
+            opacity: 0.5;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: -webkit-linear-gradient(top,rgba(204,0,0,.7) 0,rgba(165,0,0,.7) 100%);
+            background: linear-gradient(to bottom,rgba(204,0,0,.7) 0,rgba(165,0,0,.7) 100%);
+        }
+        .slick-slide{
+            height: 400px !important;
+        }
+        .story{
+            transform: translateY(10px);
+        }
+    </style>
+</head>
+
+<body>
+<head  th:replace="~{header.html}"></head>
+<section class="feature">
+    <div class="feature_banner">
+        <div class="feature_banner_item">
+            <img style="width:100%" src="https://citigym.com.vn/storage/uploads/untitled-7-15.jpg" alt="">
+        </div>
+    </div>
+</section>
+<div class="main" style="margin-top: 20px">
+    <div class="uudai">
+        <div class="uudai-list">
+            <div>
+                <p class="uudai-title" style="margin-bottom: 0px">Không gian luyện tập đẳng cấp quốc tế</p>
+                <p class="uudai-des" style="color: black">Không gian tập luyện được thiết kế đa dạng, phục vụ nhiều bộ môn và nhu cầu tập
+                    luyện của khách hàng.</p>
+            </div>
+            <div class="uudai-list-info">
+                <div class="uudai-list-item">
+                    <img src="https://w.ladicdn.com/s750x600/5e54ce64f4a6442c5ac64044/_dsc3159-hdr-20210425104625.jpg"
+                         alt="">
+                </div>
+                <div class="uudai-list-item">
+                    <img src="https://w.ladicdn.com/s750x600/5e54ce64f4a6442c5ac64044/ll4-20211015090136.jpg"
+                         alt="">
+                </div>
+                <div class="uudai-list-item">
+                    <img src="https://w.ladicdn.com/s750x600/5e54ce64f4a6442c5ac64044/qt3-20211014093603.jpg"
+                         alt="">
+                </div>
+                <div class="uudai-list-item">
+                    <img src="https://w.ladicdn.com/s750x600/5e54ce64f4a6442c5ac64044/ll-20211013070920.jpg" alt="">
+                </div>
+                <div class="uudai-list-item">
+                    <img src="https://w.ladicdn.com/s750x600/5e54ce64f4a6442c5ac64044/qt2-20211014070415.jpg"
+                         alt="">
+                </div>
+                <div class="uudai-list-item">
+                    <img src="https://w.ladicdn.com/s750x600/5e54ce64f4a6442c5ac64044/_atn9630-20200907105019.jpg"
+                         alt="">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--Trải nghiệm xu hướng -->
+<div class="uudai">
+    <div class="main" style="background-color: rgb(165, 0, 0)">
+        <div class="uudai-list" >
+            <div>
+                <p style="color: white !important" class="uudai-title dlat">Trải nghiệm bộ môn xu hướng tập luyện hàng đầu</p>
+                <p style="color: white !important" class="uudai-des">Tập luyện các bộ môn xu hướng giảm cân được hội viên yêu thích nhất tại CITIGYM với
+                    các bài tập độc quyền cùng HLV chuyên nghiệp, có kinh nghiệm lâu năm.</p>
+            </div>
+            <div class="dlat-list">
+                <div class="dlat-item canbang">
+                    <div class="dlat-info">
+                        <p class="uudai-title dlat-title">Gym/Cardio</p>
+                        <p class="uudai-des">Tăng cơ, giảm mỡ hiệu quả với HLV cá nhân cùng máy tập hiện đại.</p>
+                    </div>
+                </div>
+                <div class="dlat-item nammoi">
+                    <div class="dlat-info">
+                        <p class="uudai-title dlat-title">Yoga</p>
+                        <p class="uudai-des">Thân khỏe, tâm an cùng Yoga với Master Ấn Độ tại Studio cao cấp.</p>
+                    </div>
+                </div>
+                <div class="dlat-item hoihop">
+                    <div class="dlat-info">
+                        <p class="uudai-title dlat-title">Dance & Zumba</p>
+                        <p class="uudai-des">Hòa mình vào âm nhạc khơi nguồn năng lượng, giải tỏa căng thẳng.</p>
+                    </div>
+                </div>
+                <div class="dlat-item giftvoucher">
+                    <div class="dlat-info">
+                        <p class="uudai-title dlat-title">Kit Fit</p>
+                        <p class="uudai-des">Rèn luyện cơ thể săn chắc, tăng khả năng tự vệ, đốt mỡ hiệu quả.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDER -->
+<div class="uudai" >
+    <div class="uudai-list main" style="background-image:url('https://citigym.com.vn/themes/citigym/images/svg/stripe-section-right-grey.svg');background-repeat:no-repeat;background-size: contain;">
+        <div class="row">
+            <div class="col-md-4 col-12">
+                <div>
+                    <h1 style="font-size: 50px;font-weight:700">CHÚNG TÔI LÀ CITY GYM</h1>
+                    <p style="font-size: 16px">Là thương hiệu về sức khỏe lớn nhất Việt Nam, California Fitness & Yoga được xây dựng để mang lại hạnh phúc và tạo ra những khoảnh khắc viên mãn cho bạn trong cuộc sống bằng việc cung cấp các dịch vụ phát triển sức khỏe thể chất, dinh dưỡng và tinh thần toàn diện.</p>
+                </div>
+            </div>
+            <div class="col-md-8 col-12">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <div class="ctl-div">
+                            <div class="ctl-item">
+                                <img src="https://cali.vn/storage/app/media/2022/Homepage/Chtrinh%20nhay_900x1200.jpg" alt="">
+                                <div class="ctl-item-content">
+                                    <h2 class="ctl-title">Chương trình nhảy độc đáo</h2>
+                                    <p class="ctl-info">Hoà mình vào giai điệu yêu thích và đốt cháy calo với các lớp học nhảy sôi động. Thoả sức “phiêu” Pop dance, Sexy Dance, Pole dance hoặc Zumba dưới sự hướng dẫn của các HLV chuẩn Quốc Tế tại California</p>
+                                    <a class="ctl-timhieuthem" href="">Tìm hiểu thêm</a>
+                                </div>
+                            </div>
+                            <div class="ctl-item">
+                                <img src="https://cali.vn/storage/app/media/2021/Homepage/Cond%20dong%20truyen%20cam%20hung_900x1200.jpg" alt="">
+                                <div class="ctl-item-content">
+                                    <h2 class="ctl-title">Cộng đồng truyền cảm hứng cho bạn trở nên tốt hơn nữa!</h2>
+                                    <p class="ctl-info">
+                                        Cùng hàng ngàn hội viên lan toả lối sống lành mạnh ngay hôm nay! Đã đến lúc bạn nên thử những điều mới mẻ, hướng tới cuộc sống hứng khởi và tự tin toả sáng</p>
+                                    <a class="ctl-timhieuthem" href="">Tìm hiểu thêm</a>
+                                </div>
+                            </div>
+                            <div class="ctl-item">
+                                <img src="https://cali.vn/storage/app/media/2021/Homepage/Yogi_900x1200.jpg" alt="">
+                                <div class="ctl-item-content">
+                                    <h2 class="ctl-title">Tinh hoa Yoga Ấn Độ nguyên bản</h2>
+                                    <p class="ctl-info">
+                                        Thực hành chuẩn xác Yoga với sự hướng dẫn của các bậc thầy Yoga Ấn Độ. Đạt đến trạng thái cân bằng hoàn hảo bằng cách xây dựng sức mạnh, độ linh hoạt và sự uyển chuyển cơ thể trong khi thư giãn hoàn toàn mọi giác quan và giải phóng tâm trí</p>
+                                    <a class="ctl-timhieuthem" href="">Tìm hiểu thêm</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="ctl-div" style="margin-top: 100px">
+                            <div class="ctl-item">
+                                <img src="https://cali.vn/storage/app/media/2021/Homepage/PT_at_Cent.jpg" alt="">
+                                <div class="ctl-item-content">
+                                    <h2 class="ctl-title">HLV cá nhân luôn đồng hành cùng bạn</h2>
+                                    <p class="ctl-info">
+                                        Các huấn luyện viên đạt chuẩn NASM của chúng tôi sẽ cùng bạn thiết lập chương trình tập luyện & chế độ dinh dưỡng phù hợp với thể trạng của bạn. Đồng thời, các HLV cá nhân sẽ hướng dẫn bạn từng bước để chinh phục mục tiêu hình thể đã đặt ra</p>
+                                    <a class="ctl-timhieuthem" href="">Tìm hiểu thêm</a>
+                                </div>
+                            </div>
+                            <div class="ctl-item">
+                                <img src="https://cali.vn/storage/app/media/2021/Homepage/Lop%20group%20X_900x1200.jpg" alt="">
+                                <div class="ctl-item-content">
+                                    <h2 class="ctl-title">Lớp tập nhóm không giới hạn</h2>
+                                    <p class="ctl-info">Tận hưởng niềm vui bất tận với hơn 50 lớp tập nhóm bản quyền từ Lesmills như Body Combat, Body Jam, RPM, SH’Bam và các chương trình độc quyền do California thiết kế. Các phiên bản mới được cập nhật liên tục mỗi tháng</p>
+                                    <a class="ctl-timhieuthem" href="">Tìm hiểu thêm</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- CÂU CHUYỆN HỘI VIÊN -->
+<div class="uudai" style="margin-bottom: 0px !important;">
+    <div class="main cchv">
+        <div class="story">
+            <div style="margin-bottom: 20px">
+                <h2 style="font-weight: 700;font-size: 30px;color:white !important;text-align:center">CÂU CHUYỆN HỘI VIÊN</h2>
+                <P style="font-size: 18px;color:white !important;text-align:center">CITIGYM dùng toàn bộ nỗ lực để giúp bạn yêu cơ thể mình hơn, đều đặn mỗi ngày.</P>
+            </div>
+            <div class="uudai-list-info story-content">
+                <div class="cau-chuyen-hv">
+                    <img src="https://citigym.com.vn/storage/uploads/untitled-2-7-375x440.jpg"
+                         alt="">
+                    <p>Không bàn đến việc bạn tập gym như thế nào nhưng chế độ ăn tập gym giảm cân của bạn có thực sự tốt?</p>
+                </div>
+                <div class="cau-chuyen-hv">
+                    <img src="https://citigym.com.vn/storage/uploads/luongiahuy-375x440.jpg"
+                         alt="">
+                    <p>Lương Gia Huy cho biết anh còn bị tưởng lầm là PT vì quá mê phòng gym.</p>
+                </div>
+                <div class="cau-chuyen-hv">
+                    <img src="https://citigym.com.vn/storage/uploads/103774182-10220795879460086-7752292863115439958-o-375x440.jpg"
+                         alt="">
+                    <p>Nam diễn viên Huy Khánh đã dành thời gian ghé thăm phòng tập Citigym và khám phá những điều thú vị chỉ có tại đây.</p>
+                </div>
+                <div class="cau-chuyen-hv">
+                    <img src="https://citigym.com.vn/storage/uploads/67260036-2381504448782393-5337805851052736512-o-375x440.jpg" alt="">
+                    <p>Với những chàng trai này, chưa cần biết điều kiện vật chất thế nào mà chỉ nhìn qua thôi cũng đã đủ làm bao cô gái phải mê như điếu đổ!</p>
+                </div>
+                <div class="cau-chuyen-hv">
+                    <img src="https://citigym.com.vn/storage/uploads/photo-1-1563455054333662483207-375x440.jpg"
+                         alt="">
+                    <p>Chuyện tình 10 năm của Ông Cao Thắng – Đông Nhi khiến cho không ít người ngưỡng mộ.</p>
+                </div>
+                <div class="cau-chuyen-hv">
+                    <img src="https://citigym.com.vn/storage/uploads/qui-0942-min-1-375x440.jpg"
+                         alt="">
+                    <p>Thái Trinh đã cùng hơn 200 hội viên và khách mời danh dự có mặt tại dạ tiệc mừng sinh nhật lần thứ 2 của Citigym</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<head  th:replace="~{footer.html}"></head>
+<script src="/js/js.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                 version="3.0">
+
+    <entity class="com.example.demo.model.Tapthu">
+        <table name="tapthu" schema="gym" catalog=""/>
+        <attributes>
+            <id name="stt">
+                <column name="stt" precision="255"/>
+            </id>
+            <basic name="tenkh">
+                <column name="tenkh"/>
+            </basic>
+            <basic name="sdtkh">
+                <column name="sdtkh" length="10"/>
+            </basic>
+            <basic name="email">
+                <column name="email"/>
+            </basic>
+            <basic name="bomon">
+                <column name="bomon"/>
+            </basic>
+            <basic name="thoigian">
+                <column name="thoigian"/>
+            </basic>
+            <basic name="datedk">
+                <column name="datedk" nullable="false" precision="-1"/>
+            </basic>
+        </attributes>
+    </entity>
+</entity-mappings>

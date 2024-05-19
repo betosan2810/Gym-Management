@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script>
+        // Ignore this in your implementation
+        window.isMbscDemo = true;
+    </script>
+
+    <title>Lịch tập của bạn</title>
+
+    <!-- Mobiscroll JS and CSS Includes -->
+    <link rel="stylesheet" href="/yourschedule/css/mobiscroll.javascript.min.css">
+    <script src="/yourschedule/js/mobiscroll.javascript.min.js"></script>
+
+    <style type="text/css">
+        /* CSS styles */
+    </style>
+
+</head>
+
+<body>
+
+<div mbsc-page class="demo-custom-event-tooltip">
+    <div style="height:100%">
+        <div id="custom-event-tooltip-popup" class="md-tooltip">
+            <!-- Tooltip content -->
+        </div>
+        <div id="demo-custom-event-tooltip"></div>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    // Truyền dữ liệu từ bảng yourschedule vào biến yourschedule
+    var yourschedule = /*[[${yourschedule}]]*/ [];
+    var nameaccount = /*[[${nameaccount}]]*/ "nameaccount";
+    var roleaccount = /*[[${roleaccount}]]*/ false; // Đảm bảo giá trị là true hoặc false
+    /*]]>*/
+
+    mobiscroll.setOptions({
+        locale: mobiscroll.localeEn,
+        theme: 'ios',
+        themeVariant: 'light'
+    });
+
+    // JavaScript code
+    (function () {
+
+        // Function to open tooltip
+        function openTooltip(args, closeOption) {
+            // Code for opening tooltip
+        }
+
+        var formatDate = mobiscroll.util.datetime.formatDate;
+        var doctors = [{
+            id: 1,
+            name: nameaccount,
+            color: '#b33d3d'
+        }];
+        var currentEvent;
+        var timer;
+        var tooltip = document.getElementById('custom-event-tooltip-popup');
+        var deleteButton = document.getElementById('tooltip-event-delete');
+        var fileButton = document.getElementById('tooltip-event-view');
+        var statusButton = document.getElementById('tooltip-event-status');
+        var header = document.getElementById('tooltip-event-header');
+        var data = document.getElementById('tooltip-event-name-age');
+        var time = document.getElementById('tooltip-event-time');
+        var status = document.getElementById('tooltip-event-title');
+        var reason = document.getElementById('tooltip-event-reason');
+        var loc = document.getElementById('tooltip-event-location');
+
+        var calendar = mobiscroll.eventcalendar('#demo-custom-event-tooltip', {
+            view: {
+                schedule: {
+                    type: 'week',
+                    startDay: 0,
+                    endDay: 9,
+                    startTime: '05:00',
+                    endTime: '22:00',
+                    allDay: false
+                }
+            },
+            resources: doctors,
+            // Dữ liệu từ bảng yourschedule
+            data: yourschedule,
+            clickToCreate: false,
+            dragToCreate: false,
+            showEventTooltip: false,
+            onEventHoverIn: function (args) {
+                openTooltip(args, false);
+            },
+            onEventHoverOut: function () {
+                if (!timer) {
+                    timer = setTimeout(function () {
+                        tooltip.close();
+                    }, 200);
+                }
+            },
+            onEventClick: function (args) {
+                if (!tooltip.isVisible()) {
+                    openTooltip(args, true);
+                }
+            }
+        });
+
+        // Tooltip popup configuration
+        var tooltip = mobiscroll.popup('#custom-event-tooltip-popup', {
+            display: 'anchored',
+            touchUi: false,
+            showOverlay: false,
+            contentPadding: false,
+            closeOnOverlayClick: false,
+            width: 350,
+            onInit: function () {
+                tooltip.addEventListener('mouseenter', function (e) {
+                    if (timer) {
+                        clearTimeout(timer);
+                        timer = null;
+                    }
+                });
+
+                tooltip.addEventListener('mouseleave', function () {
+                    timer = setTimeout(function () {
+                        tooltip.close();
+                    }, 200);
+                });
+            }
+        });
+
+        // Xử lý sự kiện xóa
+        deleteButton.addEventListener('click', function () {
+            if (roleaccount) { // Kiểm tra vai trò người dùng
+                calendar.removeEvent(currentEvent);
+                mobiscroll.toast({
+                    message: 'Appointment deleted'
+                });
+            } else {
+                alert("Phần quyền không phù hợp");
+            }
+            tooltip.close();
+        });
+
+    })();
+</script>
+
+<script>
+    window.onload = function () {
+        // JavaScript code
+    }
+</script>
+</body>
+
+</html>

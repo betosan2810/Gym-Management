@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    .canvasjs-chart-credit{
+      display: none !important;
+    }
+    .divnone{
+      content: ' ';
+      width: 80px;
+      height: 20px;
+      background-color: white;
+      position: absolute;
+      top:0
+    }
+  </style>
+  <script type="text/javascript">
+    window.onload = function() {
+
+      var options = {
+        title: {
+          text: "STATISTICS OF SERVICE FAVORITE CUSTOMERS"
+        },
+        data: [{
+          type: "pie",
+          startAngle: 45,
+          showInLegend: "true",
+          legendText: "{label}",
+          indexLabel: "{label} ({y})",
+          yValueFormatString:"#,##0.#"%"",
+          dataPoints: [
+            { label: "Body Combat", y: 31 },
+            { label: "Yoga", y: 36 },
+            { label: "Kit Fit", y: 7 },
+            { label: "BodyPump", y: 7 },
+            { label: "Zumba", y: 6 },
+            { label: "Pop Dance", y: 10 },
+            { label: "Pole Fit", y: 3 }
+          ]
+        }]
+      };
+      $("#chartContainer2").CanvasJSChart(options);
+
+    }
+  </script>
+</head>
+<body>
+<div id="chartContainer2" style="height: 300px; width: 100%;"></div>
+<div class = "divnone"></div>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+</body>
+</html>

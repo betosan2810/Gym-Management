@@ -1,0 +1,32 @@
+<div class="" xmlns:th="http://www.thymeleaf.org">
+    <header class="header" style="border-bottom: 1px solid #eee;">
+        <div class="grid">
+            <a class="logo" href="/">
+                <img src="https://citigym.com.vn/themes/citigym/images/logo.png" alt="">
+            </a>
+            <nav class="navbar" id="navbar" style="margin-bottom:0px">
+                <a href="" class="navbar__item">Dịch vụ</a>
+                <a href="/lichtap" id="lichhoc" class="navbar__item">Lịch học</a>
+                <a href="" class="navbar__item">Khuyến mãi</a>
+                <a href="/tapthu" class="navbar__item ttmp">Tập thử miễn phí</a>
+            </nav>
+            <div class="header__search__user__cash">
+                <div class="navbar__item">
+                    <a th:if="${session.inforLogin==null}" href="/log" class="header_user_ava" style="background-color:#a50000;color:white;padding: 6px;border-radius:4px">
+                        Đăng nhập
+                    </a>
+                    <div th:if="${session.inforLogin!=null}" class="header_user_ava">
+                        <img src="https://d1xyolhen8fnqh.cloudfront.net/media/ecs/global/icons/default160-2.png" alt="" class="header_user_ava-img">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </header>
+</div>
+<script>
+    document.querySelector(".header_user_ava").onclick = function()
+    {
+        window.location.href="/user/profile";
+    }
+</script>

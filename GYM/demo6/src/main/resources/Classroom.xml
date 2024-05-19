@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                 version="3.0">
+
+    <entity class="com.example.demo.model.Classroom">
+        <table name="classroom" schema="gym" catalog=""/>
+        <attributes>
+            <id name="stt">
+                <column name="stt" precision="11"/>
+            </id>
+            <basic name="mahocvien">
+                <column name="mahocvien"/>
+            </basic>
+            <basic name="malop">
+                <column name="malop"/>
+            </basic>
+            <basic name="tenhocvien">
+                <column name="tenhocvien"/>
+            </basic>
+        </attributes>
+    </entity>
+</entity-mappings>

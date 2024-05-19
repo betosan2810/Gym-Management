@@ -1,0 +1,83 @@
+<style>
+  img{
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+  }
+</style>
+<div class="menu-items" xmlns:th="http://www.thymeleaf.org">
+  <ul class="nav-links">
+    <li th:if="${employee.positionemp}=='Quản lý'"><a href="/employee/quanly">
+      <i><img src="https://cdn-icons-png.flaticon.com/128/2041/2041643.png"></i>
+      <span class="link-name">Thống kê doanh số</span>
+    </a></li>
+    <li class="nav-links-item-nv" th:if="${employee.positionemp}=='Quản lý'"><a href="/employee/quanly/quanly-nhanvien">
+      <i><img src="https://cdn-icons-png.flaticon.com/128/2597/2597510.png"></i>
+      <span class="link-name">Nhân viên</span>
+    </a></li>
+    <li th:if="${employee.positionemp}=='Lễ tân'"><a href="/employee">
+      <i><img src="https://cdn-icons-png.flaticon.com/128/2597/2597510.png"></i>
+      <span class="link-name">Trang chủ</span>
+    </a></li>
+    <li class="nav-links-item-kh" th:if="${employee.positionemp}=='Quản lý'">
+      <a href="/employee/quanly/quanly-khachhang">
+        <i><img src="/image/customer.png"></i>
+        <span class="link-name">Khách hàng</span>
+      </a>
+    </li>
+    <li class="nav-links-item-tt" th:if="${employee.positionemp}=='Lễ tân'">
+      <a href="/employee/letan/quanly-tapthu">
+        <i><img src="https://cdn-icons-png.flaticon.com/512/8955/8955326.png"></i>
+        <span class="link-name">Tập thử</span>
+      </a>
+    </li>
+    <li class="nav-links-item-kh" th:if="${employee.positionemp}=='Lễ tân'">
+      <a href="/employee/letan/quanly-khachhang">
+        <i><img src="/image/customer.png"></i>
+        <span class="link-name">Khách hàng</span>
+      </a>
+    </li>
+    <li class="nav-links-item-hlv" th:if="${employee.positionemp}=='Quản lý'">
+      <a href="/employee/quanly/quanly-hlv">
+        <i><img src="https://cdn-icons-png.flaticon.com/128/2964/2964514.png"></i>
+        <span class="link-name">Huấn luyện viên</span>
+      </a>
+    </li>
+    <li class="nav-links-item-hlv" th:if="${employee.positionemp}=='Lễ tân'">
+      <a href="/employee/letan/quanly-hlv">
+        <i><img src="https://cdn-icons-png.flaticon.com/128/2964/2964514.png"></i>
+        <span class="link-name">Huấn luyện viên</span>
+      </a>
+    </li>
+    <li th:if="${employee.positionemp}=='Quản lý'"><a href="/employee/quanly/quanly-xeplich">
+      <i><img src="https://cdn-icons-png.flaticon.com/128/1048/1048953.png"></i>
+      <span class="link-name">Xếp lịch</span>
+    </a></li>
+    <li th:if="${employee.positionemp}=='Lễ tân'"><a href="/employee/letan/quanly-xeplich">
+      <i><img src="https://cdn-icons-png.flaticon.com/128/1048/1048953.png"></i>
+      <span class="link-name">Xem lịch HLV</span>
+    </a></li>
+    <li><a href="#">
+      <i><img src="https://cdn-icons-png.flaticon.com/128/5486/5486252.png"></i>
+      <span class="link-name">Dịch vụ</span>
+    </a></li>
+  </ul>
+
+  <ul class="logout-mode">
+    <li><a href="/employee/logout">
+      <i class="uil uil-signout"></i>
+      <span class="link-name">Đăng xuất</span>
+    </a></li>
+
+    <li class="mode">
+      <a href="#">
+        <i class="uil uil-moon"></i>
+        <span class="link-name">Dark Mode</span>
+      </a>
+
+      <div class="mode-toggle">
+        <span class="switch"></span>
+      </div>
+    </li>
+  </ul>
+</div>

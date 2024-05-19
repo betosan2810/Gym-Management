@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                 version="3.0">
+
+    <entity class="com.example.demo.model.Khachhang">
+        <table name="khachhang" schema="gym" catalog=""/>
+        <attributes>
+            <id name="makh">
+                <column name="makh"/>
+            </id>
+            <basic name="tenkh">
+                <column name="tenkh"/>
+            </basic>
+            <basic name="sdtkh">
+                <column name="sdtkh"/>
+            </basic>
+            <basic name="emailkh">
+                <column name="emailkh"/>
+            </basic>
+            <basic name="gender">
+                <column name="gender"/>
+            </basic>
+            <basic name="password">
+                <column name="password"/>
+            </basic>
+            <basic name="role">
+                <column name="role" nullable="false"/>
+            </basic>
+            <basic name="level">
+                <column name="level" nullable="false"/>
+            </basic>
+            <basic name="point">
+                <column name="point" nullable="false" precision="255"/>
+            </basic>
+            <basic name="createaccount">
+                <column name="createaccount" nullable="false" precision="-1"/>
+            </basic>
+            <basic name="status">
+                <column name="status"/>
+            </basic>
+        </attributes>
+    </entity>
+</entity-mappings>

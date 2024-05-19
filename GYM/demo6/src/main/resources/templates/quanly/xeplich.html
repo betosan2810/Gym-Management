@@ -1,0 +1,710 @@
+
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="https://cali.vn/themes/cfyc/assets/static/favicon/favicon.svg">
+  <script>
+    // Ignore this in your implementation
+    window.isMbscDemo = true;
+  </script>
+
+  <title>
+    QUẢN LÝ LỊCH DẠY
+  </title>
+
+  <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+
+  <!-- Mobiscroll JS and CSS Includes -->
+  <link rel="stylesheet" href="/xeplich/css/mobiscroll.jquery.min.css">
+  <script src="/xeplich/js/mobiscroll.jquery.min.js"></script>
+
+
+  <style type="text/css">
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    body,
+    html {
+      height: 100%;
+    }
+
+    .event-color-c {
+      display: flex;
+      margin: 16px;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .event-color-label {
+      flex: 1 0 auto;
+    }
+
+    .event-color {
+      width: 30px;
+      height: 30px;
+      border-radius: 15px;
+      margin-right: 10px;
+      margin-left: 240px;
+      background: #5ac8fa;
+    }
+
+    .crud-color-row {
+      display: flex;
+      justify-content: center;
+      margin: 5px;
+    }
+
+    .crud-color-c {
+      padding: 3px;
+      margin: 2px;
+    }
+
+    .crud-color {
+      position: relative;
+      min-width: 46px;
+      min-height: 46px;
+      margin: 2px;
+      cursor: pointer;
+      border-radius: 23px;
+      background: #5ac8fa;
+    }
+
+    .crud-color-c.selected,
+    .crud-color-c:hover {
+      box-shadow: inset 0 0 0 3px #007bff;
+      border-radius: 48px;
+    }
+
+    .crud-color:before {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -10px;
+      margin-left: -10px;
+      color: #f7f7f7;
+      font-size: 20px;
+      text-shadow: 0 0 3px #000;
+      display: none;
+    }
+
+    .crud-color-c.selected .crud-color:before {
+      display: block;
+    }
+    .mbsc-textfield-inner-inline{
+      padding-bottom: 0px !important;
+    }
+    .div-hlv{
+      padding: 16px 16px;
+      background-color: white;
+      font-family: -apple-system,Segoe UI,Roboto,sans-serif;
+      font-size: 16px;
+      font-weight: 400;"
+    }
+    #chon-hlv-day{
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+<div mbsc-page class="demo-create-read-update-delete-CRUD" style="padding: 0px 15px">
+  <h3 style="text-align: center;font-weight: bold">XẾP LỊCH DẠY CHO HUẤN LUYỆN VIÊN</h3>
+  <div style="height:100%">
+    <div id="demo-add-delete-event"></div>
+
+    <div style="display: none">
+      <div id="demo-add-popup">
+        <div class="mbsc-form-group">
+          <div class="div-hlv">
+            <label id="label-chon-hlv">Chọn Giảng viên dạy</label>
+            <select id="chon-hlv-day" name="chon-hlv-day">
+            </select>
+          </div>
+
+          <label>
+            Bộ môn
+            <input mbsc-input id="event-title">
+          </label>
+          <label>
+            Phòng học
+            <textarea mbsc-textarea id="event-desc"></textarea>
+          </label>
+        </div>
+        <div class="mbsc-form-group">
+          <label>
+            All-day
+            <input mbsc-switch id="event-all-day" type="checkbox" />
+          </label>
+          <label>
+            Starts
+            <input mbsc-input id="start-input" />
+          </label>
+          <label>
+            Ends
+            <input mbsc-input id="end-input" />
+          </label>
+          <div id="event-date"></div>
+          <div id="event-color-picker" class="event-color-c">
+            <div class="event-color-label">Color</div>
+            <div id="event-color-cont">
+              <div id="event-color" class="event-color"></div>
+            </div>
+          </div>
+          <label>
+            Show as busy
+            <input id="event-status-busy" mbsc-segmented type="radio" name="event-status" value="busy">
+          </label>
+          <label>
+            Show as free
+            <input id="event-status-free" mbsc-segmented type="radio" name="event-status" value="free">
+          </label>
+          <div class="mbsc-button-group">
+            <button class="mbsc-button-block" id="event-delete" mbsc-button data-color="danger" data-variant="outline">Xóa sự kiện</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="demo-event-color">
+        <div class="crud-color-row">
+          <div class="crud-color-c" data-value="#ffeb3c">
+            <div class="crud-color mbsc-icon mbsc-font-icon mbsc-icon-material-check" style="background:#ffeb3c"></div>
+          </div>
+          <div class="crud-color-c" data-value="#ff9900">
+            <div class="crud-color mbsc-icon mbsc-font-icon mbsc-icon-material-check" style="background:#ff9900"></div>
+          </div>
+          <div class="crud-color-c" data-value="#f44437">
+            <div class="crud-color mbsc-icon mbsc-font-icon mbsc-icon-material-check" style="background:#f44437"></div>
+          </div>
+          <div class="crud-color-c" data-value="#ea1e63">
+            <div class="crud-color mbsc-icon mbsc-font-icon mbsc-icon-material-check" style="background:#ea1e63"></div>
+          </div>
+          <div class="crud-color-c" data-value="#9c26b0">
+            <div class="crud-color mbsc-icon mbsc-font-icon mbsc-icon-material-check" style="background:#9c26b0"></div>
+          </div>
+        </div>
+        <div class="crud-color-row">
+          <div class="crud-color-c" data-value="#3f51b5">
+            <div class="crud-color mbsc-icon mbsc-font-icon mbsc-icon-material-check" style="background:#3f51b5"></div>
+          </div>
+          <div class="crud-color-c" data-value="">
+            <div class="crud-color mbsc-icon mbsc-font-icon mbsc-icon-material-check"></div>
+          </div>
+          <div class="crud-color-c" data-value="#009788">
+            <div class="crud-color mbsc-icon mbsc-font-icon mbsc-icon-material-check" style="background:#009788"></div>
+          </div>
+          <div class="crud-color-c" data-value="#4baf4f">
+            <div class="crud-color mbsc-icon mbsc-font-icon mbsc-icon-material-check" style="background:#4baf4f"></div>
+          </div>
+          <div class="crud-color-c" data-value="#7e5d4e">
+            <div class="crud-color mbsc-icon mbsc-font-icon mbsc-icon-material-check" style="background:#7e5d4e"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  var datalichday = /*[[${datalichday}]]*/ "datalichday";
+  var listhlv = /*[[${listhlv}]]*/ "listhlv";
+  var stt_idteacher = /*[[${stt_idteacher}]]*/ "stt_idteacher"
+  /*]]>*/
+
+  console.log(listhlv)
+  console.log(stt_idteacher)
+
+  function getKeyByValue(object, value) {
+    return Object.keys(object).find(key => object[key] === value);
+  }
+  let clb = document.getElementById('chon-hlv-day')
+  for (const [index, a] of Object.values(listhlv).entries()) {
+    const opt = document.createElement('option');
+    opt.value = getKeyByValue(listhlv,a);
+    opt.setAttribute("namehlvforchoose",a)
+    opt.innerHTML = a;
+    clb.appendChild(opt);
+  }
+
+  let idModified = datalichday.map(
+          obj => {
+            return {
+              "id" : obj.stt,
+              "start":obj.thoigianday,
+              "end":obj.thoigianketthuc,
+              "title":obj.bomonday,
+              "description":obj.phongday,
+              "allDay":obj.allday,
+              "color":obj.color,
+              "idteacher":obj.idteacher
+            }
+          }
+  );
+  idModified.map(ele=>{
+    if(ele.allDay=='true')
+      ele.allDay=true
+    if(ele.allDay=='false')
+      ele.allDay=false
+  })
+
+  myData = idModified
+  console.log(myData)
+  mobiscroll.setOptions({
+    locale: mobiscroll.localeEn,
+    theme: 'ios',
+    themeVariant: 'light'
+  });
+
+  $(function () {
+    var oldEvent,
+            tempEvent = {},
+            deleteEvent,
+            restoreEvent,
+            colorPicker,
+            tempColor,
+            $title = $('#event-title'),
+            $description = $('#event-desc'),
+            $allDay = $('#event-all-day'),
+            $statusFree = $('#event-status-free'),
+            $statusBusy = $('#event-status-busy'),
+            $deleteButton = $('#event-delete'),
+            $color = $('#event-color'),
+            datePickerResponsive = {
+              medium: {
+                controls: ['calendar'],
+                touchUi: false
+              }
+            },
+            datetimePickerResponsive = {
+              medium: {
+                controls: ['calendar', 'time'],
+                touchUi: false
+              }
+            },
+            now = new Date();
+
+    function createAddPopup(elm) {
+      // hide delete button inside add popup
+      $deleteButton.hide();
+      deleteEvent = true;
+      restoreEvent = false;
+
+      // set popup header text and buttons for adding
+      popup.setOptions({
+        headerText: 'Xếp Lịch',
+        buttons: ['cancel', {
+          text: 'Add',
+          keyCode: 'enter',
+          handler: function ()
+          {
+            calendar.updateEvent({
+              id: tempEvent.id,
+              title: tempEvent.title,
+              description: tempEvent.description,
+              allDay: tempEvent.allDay,
+              start: tempEvent.start,
+              end: tempEvent.end,
+              color: tempEvent.color,
+            });
+
+            // navigate the calendar to the correct view
+            calendar.navigateToEvent(tempEvent);
+            deleteEvent = false;
+            popup.close();
+
+            //XỬ LÝ SỰ KIỆN ADD Ở ĐÂY NHA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            let huycolor =  tempEvent.color||'#5ac8fa'
+            let datapass = {
+              idteacher:document.getElementById('chon-hlv-day').value,
+              bomonday:tempEvent.title,
+              phongday:tempEvent.description,
+              allday:tempEvent.allDay,
+              thoigianday: formatTimeToUpDatabase(document.getElementById('start-input').value),
+              thoigianketthuc:formatTimeToUpDatabase(document.getElementById('end-input').value),
+              color:huycolor,
+            }
+            if(document.getElementById('event-title').value!='' && document.getElementById('event-desc').value!='')
+            {
+              $.ajax({
+                type: "POST",
+                url: "http://localhost:8080/employee/quanly/quanlylichday/add",
+                data: JSON.stringify(datapass),
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Accept':'application/json'
+                },
+                success: function (data)
+                {
+                  console.log(data)
+                  myData.concat(data)
+                },
+                error: function (e) {
+
+                }
+              });
+            }
+            // document.getElementById('label-chon-hlv').setAttribute("selectedhlv",document.getElementById('chon-hlv-day').value)
+          },
+          cssClass: 'mbsc-popup-button-primary'
+
+        }]
+      });
+
+      // fill popup with a new event data
+      //hiện lên modal input!!!
+      $title.mobiscroll('getInst').value = tempEvent.title;
+      $description.mobiscroll('getInst').value = '';
+      $allDay.mobiscroll('getInst').checked = true;
+      range.setVal([tempEvent.start, tempEvent.end]);
+      $statusBusy.mobiscroll('getInst').checked = true;
+      range.setOptions({ controls: ['date'], responsive: datePickerResponsive });
+      selectColor('', true);
+
+      // set anchor for the popup
+      popup.setOptions({ anchor: elm });
+
+      popup.open();
+    }
+
+    //CONVERT AMPM TO 24H
+    const convertTime12to24 = (time12h) => {
+      const [time, modifier] = time12h.split(' ');
+
+      let [hours, minutes] = time.split(':');
+
+      if (hours === '12') {
+        hours = '00';
+      }
+      if (modifier === 'PM') {
+        hours = parseInt(hours, 10) + 12;
+      }
+      if(hours<10 && hours>0)
+        return `0${hours}:${minutes}`;
+      return `${hours}:${minutes}`;
+    }
+
+    const formatTimeToUpDatabase = (time) =>{
+
+      if(time.includes(' ')==true)
+      {
+        let huystartdate = time.substring(0,time.indexOf(' ')).replaceAll('/','-')
+        let thang_ngay = huystartdate.substring(0,huystartdate.indexOf('-',3))
+        let nam = huystartdate.substring(huystartdate.indexOf('-',3)+1)
+        let huystarttime = time.substring(time.indexOf(' ')+1)
+        return nam+'-'+thang_ngay+'T'+convertTime12to24(huystarttime);
+      }
+      else
+      {
+        let huystartdate = time.replaceAll('/','-')
+        let thang_ngay = huystartdate.substring(0,huystartdate.indexOf('-',3))
+        let nam = huystartdate.substring(huystartdate.indexOf('-',3)+1)
+        return nam+'-'+thang_ngay
+      }
+
+    }
+    function createEditPopup(args) {
+
+      //ev là khi click vô item
+      var ev = args.event;
+      // show delete button inside edit popup
+      $deleteButton.show();
+      deleteEvent = false;
+      restoreEvent = true;
+
+      console.log(ev)
+      //CỤM X xử lý selected hlv cũ!!
+      var valx = ev.idteacher;
+      var itemSelectx = document.getElementById('chon-hlv-day');
+      var indexx = $(itemSelectx).find('[value='+valx+']').index()
+      document.getElementById('chon-hlv-day').selectedIndex = indexx
+
+      // set popup header text and buttons for editing
+      popup.setOptions({
+        headerText: 'Xếp lịch HLV',
+        buttons: ['cancel', {
+          text: 'Save',
+          keyCode: 'enter',
+          handler: function () {
+            var date = range.getVal();
+            var eventToSave = {
+              id: ev.id,
+              title: $title.val(),
+              description: $description.val(),
+              allDay: $allDay.mobiscroll('getInst').checked,
+              start: date[0],
+              end: date[1],
+              free: $statusFree.mobiscroll('getInst').checked,
+              color: ev.color,
+              idteacher:document.getElementById('chon-hlv-day').value
+            };
+
+            // update event with the new properties on save button click
+            calendar.updateEvent(eventToSave);
+            console.log(eventToSave) //log ra sau khi update
+
+            //VIẾT SỰ KIỆN UPDATE LÊN DATABASE Ở ĐÂY NÈ !!
+            $.ajax({
+              type: "POST",
+              url: "http://localhost:8080/employee/quanly/quanlylichday/edit",
+              data:{
+                stt:eventToSave.id,
+                idteacher:document.getElementById('chon-hlv-day').value,
+                bomonday:eventToSave.title,
+                phongday:eventToSave.description,
+                allday:eventToSave.allDay,
+                thoigianday: formatTimeToUpDatabase(document.getElementById('start-input').value),
+                thoigianketthuc: formatTimeToUpDatabase(document.getElementById('end-input').value),
+                color:eventToSave.color
+              },
+              success: function (response)
+              {
+                console.log("Update thành công rồi nè")
+              },
+              error: function (e) {
+                console.log("Update lỗi")
+              }
+            });
+
+            // navigate the calendar to the correct view
+            calendar.navigateToEvent(eventToSave);
+            restoreEvent = false;
+            popup.close();
+          },
+          cssClass: 'mbsc-popup-button-primary'
+        }]
+      });
+
+      // fill popup with the selected event data
+      $title.mobiscroll('getInst').value = ev.title || '';
+      $description.mobiscroll('getInst').value = ev.description || '';
+      $allDay.mobiscroll('getInst').checked = ev.allDay || false;
+      range.setVal([ev.start, ev.end]);
+      selectColor(ev.color, true);
+
+      if (ev.free) {
+        $statusFree.mobiscroll('getInst').checked = true;
+      } else {
+        $statusBusy.mobiscroll('getInst').checked = true;
+      }
+
+      // change range settings based on the allDay
+      range.setOptions({
+        controls: ev.allDay ? ['date'] : ['datetime'],
+        responsive: ev.allDay ? datePickerResponsive : datetimePickerResponsive
+      });
+
+      // set anchor for the popup
+      popup.setOptions({ anchor: args.domEvent.currentTarget });
+      popup.open();
+    }
+
+    var calendar = $('#demo-add-delete-event').mobiscroll().eventcalendar({
+      clickToCreate: 'double',
+      dragToCreate: true,
+      dragToMove: true,
+      dragToResize: true,
+      view: {
+        calendar: { labels: true }
+      },
+      data: myData,
+      onEventClick: function (args) {
+        oldEvent = $.extend({}, args.event);
+        tempEvent = args.event;
+        if (!popup.isVisible()) {
+          createEditPopup(args);
+        }
+      },
+      onEventCreated: function (args) {
+        popup.close();
+
+        // store temporary event
+        tempEvent = args.event;
+        createAddPopup(args.target);
+      },
+      onEventDeleted: function () {               // More info about onEventDeleted: https://docs.mobiscroll.com/5-20-0/eventcalendar#event-onEventDeleted
+        mobiscroll.snackbar({
+
+          button: {
+            action: function () {
+              calendar.addEvent(args.event);
+            },
+            text: 'Undo'
+          },
+          message: 'Event deleted'
+        });
+      }
+    }).mobiscroll('getInst');
+
+    var popup = $('#demo-add-popup').mobiscroll().popup({
+      display: 'bottom',                          // Specify display mode like: display: 'bottom' or omit setting to use default
+      contentPadding: false,
+      fullScreen: true,
+      onClose: function () {                      // More info about onClose: https://docs.mobiscroll.com/5-20-0/eventcalendar#event-onClose
+        if (deleteEvent) {
+          calendar.removeEvent(tempEvent);
+        } else if (restoreEvent) {
+          calendar.updateEvent(oldEvent);
+        }
+      },
+      responsive: {                               // More info about responsive: https://docs.mobiscroll.com/5-20-0/eventcalendar#opt-responsive
+        medium: {
+          display: 'anchored',                // Specify display mode like: display: 'bottom' or omit setting to use default
+          width: 400,                         // More info about width: https://docs.mobiscroll.com/5-20-0/eventcalendar#opt-width
+          fullScreen: false,
+          touchUi: false
+        }
+      }
+    }).mobiscroll('getInst');
+
+    //THÔNG TIN SHOW RA TRÊN LỊCH!!
+    $title.on('input', function (ev) {
+      // update current event's title
+      tempEvent.title = ev.target.value
+      console.log(ev.target)
+    });
+
+    $description.on('change', function (ev) {
+      // update current event's title
+      tempEvent.description = ev.target.value;
+    });
+
+    $allDay.on('change', function () {
+      var checked = this.checked
+
+      // change range settings based on the allDay
+      range.setOptions({
+        controls: checked ? ['date'] : ['datetime'],
+        responsive: checked ? datePickerResponsive : datetimePickerResponsive
+      });
+
+      // update current event's allDay property
+      tempEvent.allDay = checked;
+    });
+
+    var range = $('#event-date').mobiscroll().datepicker({
+      controls: ['date'],
+      select: 'range',
+      startInput: '#start-input',
+      endInput: '#end-input',
+      showRangeLabels: false,
+      touchUi: true,
+      responsive: datePickerResponsive,
+      onChange: function (args) {
+        var date = args.value;
+
+        // update event's start date
+        tempEvent.start = date[0];
+        tempEvent.end = date[1];
+      }
+    }).mobiscroll('getInst');
+
+    $('input[name=event-status]').on('change', function () {
+      // update current event's free property
+      tempEvent.free = $statusFree.mobiscroll('getInst').checked;
+    });
+
+    $deleteButton.on('click', function () {
+      // delete current event on button click
+      calendar.removeEvent(oldEvent);
+
+      //VIẾT SỰ KIỆN XÓA KHỎI DATABASE Ở ĐÂY!!
+      console.log(oldEvent.id)
+      $.ajax({
+        type: "Delete",
+        url: "http://localhost:8080/employee/quanly/quanlylichday/delete/"+oldEvent.id,
+        data: {stt: oldEvent.id },
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept':'application/json'
+        },
+        success: function (response)
+        {
+          console.log("Xóa thành công");
+        }
+      });
+
+      popup.close();
+
+      mobiscroll.snackbar({
+
+        button: {
+          action: function () {
+            calendar.addEvent(tempEvent);
+          },
+          text: 'Undo'
+        },
+        message: 'Xóa thành công'
+      });
+    });
+
+    colorPicker = $('#demo-event-color').mobiscroll().popup({
+      display: 'bottom',
+      contentPadding: false,
+      showArrow: false,
+      showOverlay: false,
+      buttons: [
+        'cancel',
+        {
+          text: 'Set',
+          keyCode: 'enter',
+          handler: function (ev) {
+            setSelectedColor();
+          },
+          cssClass: 'mbsc-popup-button-primary'
+        }
+      ],
+      responsive: {
+        medium: {
+          display: 'anchored',
+          anchor: $('#event-color-cont')[0],
+          buttons: {},
+        }
+      }
+    }).mobiscroll('getInst');
+
+    function selectColor(color, setColor) {
+      $('.crud-color-c').removeClass('selected');
+      $('.crud-color-c[data-value="' + color + '"]').addClass('selected');
+      if (setColor) {
+        $color.css('background', color || '');
+      }
+    }
+
+    function setSelectedColor() {
+      tempEvent.color = tempColor;
+      $color.css('background', tempColor);
+      colorPicker.close();
+    }
+
+    $('#event-color-picker').on('click', function () {
+      selectColor(tempEvent.color || '');
+      colorPicker.open();
+    });
+
+    $('.crud-color-c').on('click', function (ev) {
+      var $elm = $(ev.currentTarget);
+
+      tempColor = $elm.data('value');
+      selectColor(tempColor);
+
+      if (!colorPicker.s.buttons.length) {
+        setSelectedColor();
+      }
+    });
+  });
+</script>
+<script>
+  let eventtile =document.getElementById('event-title') //set trong neweventtext trong file js
+  eventtile.setAttribute("placeholder",'Bộ Môn')
+
+</script>
+</body>
+
+</html>

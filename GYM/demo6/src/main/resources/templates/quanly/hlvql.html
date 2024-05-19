@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!----======== CSS ======== -->
+  <link rel="stylesheet" href="/cssql/style.css">
+  <link rel="stylesheet" href="/css/paginate.css">
+
+  <!----===== Iconscout CSS ===== -->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!--SWAL-->
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <title>Quản Lý HLV</title>
+
+  <style>
+    .invalid input:required:invalid {
+      background: #BE4C54;
+    }
+
+    /* Mark valid inputs during .invalid state */
+    .invalid input:required:valid {
+      background: #17D654;
+    }
+    .nav-links-item-hlv
+    {
+      background-color: #a50000;
+      border-radius: 4px;
+      color: white; !important;
+    }
+    .nav-links-item-hlv span
+    {
+      color:white !important;
+    }
+  </style>
+
+
+</head>
+<body>
+<nav>
+  <div class="logo-name">
+    <div class="logo-image">
+      <img src="/image/logocitygym.png" alt="">
+    </div>
+
+  </div>
+  <div>
+    <div th:switch="${employee.positionemp}" style="margin-top: 10px">
+      <p th:case="'Quản lý'" style="text-align: center;font-weight: 700;font-size: 30px;margin-bottom: 0px" >Quản lý</p>
+      <p th:case="'Lễ tân'" style="text-align: center;font-weight: 700;font-size: 30px;margin-bottom: 0px" >Lễ tân</p>
+    </div>
+    <p style="text-align: center;font-size: 16px;font-weight: bold;margin-bottom: 0px;color: #a50000" th:text="${employee.tenemp}"></p>
+  </div>
+
+  <head  th:replace="~{/quanly/menu-item-ql}"></head>
+</nav>
+
+<section class="dashboard">
+  <div class="top">
+    <i class="uil uil-bars sidebar-toggle"></i>
+    <div class="search-box">
+      <i class="uil uil-search"></i>
+      <input type="text" placeholder="Search here..." id="search_field">
+    </div>
+    <img src="https://scontent.fsgn9-1.fna.fbcdn.net/v/t39.30808-1/275672436_666409987901352_5811510392181224482_n.jpg?stp=dst-jpg_s320x320&_nc_cat=106&ccb=1-7&_nc_sid=7206a8&_nc_ohc=ocBRQ_BSUrgAX-pfjXR&_nc_oc=AQlbhssJHqGVPuNPHzDbSIavGYqgfyaumGWDn3rBoknMWe1U4N6EMXsL5w4Pkq78rI0&_nc_ht=scontent.fsgn9-1.fna&oh=00_AfAAY9QVtbDyo48msmD-MGBELm2w-J0y1qtszJJ1S10RsQ&oe=638A42F4" alt="">
+  </div>
+
+  <div class="dash-content">
+    <div class="activity">
+      <div class="title">
+        <i class="uil-list-ul"></i>
+        <span class="text">Danh sách nhân viên</span>
+        <button class="btn btn-success ml-3" onclick="inds()">In danh sách</button>
+      </div>
+      <button th:if="${employee.positionemp=='Quản lý'}" class="btn btn-primary mb-1" data-toggle="modal" data-target="#exampleModal">Thêm huấn luyện viên</button>
+
+      <div class="activity-data">
+        <table class="table table-striped" id="fid_table">
+          <thead>
+          <tr class="t_head">
+            <th scope="col">Mã HLV</th>
+            <th scope="col">Họ tên</th>
+            <th scope="col">Avatar</th>
+            <th scope="col">Giới tính</th>
+            <th scope="col">Số điện thoại</th>
+            <th scope="col">Email</th>
+            <th scope="col">Ngày vào làm</th>
+            <th scope="col" th:if="${employee.positionemp=='Quản lý'}">Tác vụ</th>
+          </tr>
+          </thead>
+          <tbody >
+          <tr class="tritem" th:each="nv:${dshlv}" th:id="row_+${nv.idteacher}" id="listnv">
+            <td style="font-weight: bold" th:text="${nv.idteacher}">@mdo</td>
+            <td th:class="row-tenemp-+${nv.idteacher}" th:text="${nv.nameteacher}" th:attr="mnv=${nv.idteacher}" th:id="namenv_+${nv.idteacher}"></td>
+            <td><img style="width: 80px;height: 80%;border-radius: 4px" th:src="${nv.avatar}"></td>
+            <td th:class="row-genderemp-+${nv.idteacher}" th:text="${nv.genderteacher}">Otto</td>
+            <td th:class="row-sdtemp-+${nv.idteacher}" th:text="${nv.sdtteacher}">@mdo</td>
+            <td th:class="row-emailemp-+${nv.idteacher}" th:text="${nv.emailteacher}">@mdo</td>
+            <td th:class="row-positionemp-+${nv.idteacher}" th:text="${nv.createteacher}" id="ngayvaolam">@mdo</td>
+            <td th:if="${employee.positionemp=='Quản lý'}">
+              <i class="uil-comment-edit" style="font-size: 20px" data-toggle="modal" data-target="#editModal" th:attr="onclick=|handleEdit('${nv.idteacher}')|"></i>
+              <i id=deletenv"" class="uil-trash-alt" style="font-size: 20px;color: red" th:attr="onclick=|handleDelete('${nv.idteacher}')|" ></i>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="pagination-container"></div>
+    </div>
+  </div>
+</section>
+
+<!--MODAL THÊM NHÂN VIÊN-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Thêm Huấn Luyện Viên mới</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="needs-validation" novalidate>
+          <div class="form-group">
+            <label for="tennv" class="col-form-label">Họ tên HLV</label>
+            <input required type="text" class="form-control is-invalid" id="tennv" name="tennv" pattern="[a-z\sA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]{1,255}" >
+<!--            <div class="invalid-feedback">-->
+<!--              Nhập tên HLV-->
+<!--            </div>-->
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="genderemp" id="inlineRadio1" value="Male" checked>
+            <label class="form-check-label" for="inlineRadio1">Nam</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="genderemp" id="inlineRadio2" value="Female">
+            <label class="form-check-label" for="inlineRadio2">Nữ</label>
+          </div>
+          <div class="form-group">
+            <label for="sdtnv" class="col-form-label">Số điện thoại</label>
+            <input required type="tel" id="sdtnv" name="sdtnv" class="form-control is-invalid" pattern="[0]{1}[0-9]{3}[0-9]{3}[0-9]{3}">
+<!--            <div class="invalid-feedback">-->
+<!--              Nhập số điện thoại-->
+<!--            </div>-->
+          </div>
+          <div class="form-group">
+            <label for="emailnv" class="col-form-label">Email</label>
+            <input type="email" id="emailnv" name="emailnv" class="form-control is-invalid" required>
+<!--            <div class="invalid-feedback">-->
+<!--              Nhập email HLV-->
+<!--            </div>-->
+          </div>
+          <div class="form-group">
+            <label for="passnv" class="col-form-label">Mật khẩu</label>
+            <input type="password" id="passnv" name="passnv" class="form-control is-invalid" pattern=".{6,}" required>
+<!--            <div class="invalid-feedback">-->
+<!--              Nhập tên mật khẩu-->
+<!--            </div>-->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+            <button type="button" class="btn btn-primary" id="themnv" disabled>Thêm</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--MODAL SỬA NHÂN VIÊN-->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">Sửa thông tin Huấn luện viên</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="needs-validation" novalidate>
+          <div class="form-group">
+            <label for="tennv" class="col-form-label">Họ tên nhân viên</label>
+            <input required type="text" class="form-control is-invalid" id="tennvedit" name="tennv" pattern="[a-z\sA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]{1,255}" >
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="genderempedit" id="genderedit1" value="Male" checked>
+            <label class="form-check-label" for="inlineRadio1">Nam</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="genderempedit" id="genderedit2" value="Female">
+            <label class="form-check-label" for="inlineRadio2">Nữ</label>
+          </div>
+          <div class="form-group">
+            <label for="sdtnv" class="col-form-label">Số điện thoại</label>
+            <input required type="tel" id="sdtnvedit" name="sdtnv" class="form-control is-invalid" pattern="[0]{1}[0-9]{3}[0-9]{3}[0-9]{3}">
+          </div>
+          <div class="form-group">
+            <label for="emailnv" class="col-form-label">Email</label>
+            <input type="email" id="emailnvedit" name="emailnv" class="form-control is-invalid" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="huyedit">Hủy</button>
+        <button class="btn btn-primary" id="confirmedit" onclick="confirmEdit()">Sửa</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="/jsql/script.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js">
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/simplePagination.js/1.6/jquery.simplePagination.js'></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<script>
+
+
+  //VALID BOOTSTRAP
+  (function() {
+    'use strict';
+    window.addEventListener('load', function() {
+      var forms = document.getElementsByClassName('needs-validation');
+      // Loop over them and prevent submission
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('change', function(event) {
+
+          if (form.checkValidity() === false)
+          {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+          if(form.checkValidity()===true)
+          {
+            $("#themnv").prop('disabled', false)
+          }
+        }, false);
+      });
+    }, false)
+  })();
+
+
+  function inds()
+  {
+    $.get("http://localhost:8080/employee/quanly/quanly-hlv-in", function(data, status){
+    });
+    alert("Danh sách HLV đã được in");
+  }
+
+  //THÊM HLV
+  $(document).ready(function()
+  {
+    document.querySelectorAll('#ngayvaolam').forEach(e=>{
+      e.innerText = e.innerText.substring(0,e.innerText.indexOf(' '))
+    })
+    var radioButtonGroupGender = document.getElementsByName("genderemp");
+    $('#themnv').click(function ()
+    {
+      let data = {
+        nameteacher:$('#tennv').val(),
+        sdtteacher:$('#sdtnv').val(),
+        emailteacher:$('#emailnv').val(),
+        genderteacher:Array.from(radioButtonGroupGender).find((radio) => radio.checked).value,
+        passteacher:$('#passnv').val()
+      }
+      $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/employee/quanly/security/api/hlv/add",
+        data: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept':'application/json'
+        },
+        success: function (data)
+        {
+          swal({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Thêm HLV thành công',
+            showConfirmButton: false,
+            timer: 2000
+          }).then(()=>{
+            location.reload()
+          })
+        },
+        error: function (e) {
+
+        }
+      });
+    })
+  })
+
+
+  function handleDelete(uid)
+  {
+    console.log(uid)
+    let name = $('#namenv_'+uid).text()
+    let text = "Xóa "+name +"?"
+    swal({
+      title: "Xác nhận xóa!",
+      text: text,
+      icon: "warning",
+      buttons: true,
+      dangerMode: false,
+    }).then((value) => {
+      if (value) {
+        $.ajax({
+          type: "Delete",
+          url: "http://localhost:8080/employee/quanly/security/api/hlv/delete/"+uid,
+          data: {idhlv: uid },
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept':'application/json'
+          },
+          success: function (response)
+          {
+            swal({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Xóa thành công',
+              showConfirmButton: false,
+              timer: 1000
+            }).then(()=>{
+              $('#row_'+uid).remove()
+            })
+          }
+        });
+      }
+    });
+  }
+
+  function handleEdit(uid)
+  {
+    console.log(uid)
+    $.ajax({
+      type: "GET",
+      dataType:'json',
+      url: "http://localhost:8080/employee/quanly/edit/hlv",
+      data: {idhlv: uid },
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept':'application/json'
+      },
+      success: function (response)
+      {
+        console.log(response)
+        $('#tennvedit').val(response.nameteacher)
+        $('#emailnvedit').val(response.emailteacher)
+        $('#sdtnvedit').val(response.sdtteacher)
+        if(response.genderteacher=='Male')
+          $('#genderedit1').prop("checked",true)
+        if(response.genderteacher=='Female')
+          $('#genderedit2').prop("checked",true)
+        $('#confirmedit').attr('valueidedit',uid);
+      }
+    });
+  }
+
+  var radioButtonGroupGender = document.getElementsByName("genderempedit");
+  function confirmEdit()
+  {
+    let uid = $('#confirmedit').attr('valueidedit')
+
+    let data = {
+      idteacher:uid,
+      nameteacher:$('#tennvedit').val(),
+      emailteacher:$('#emailnvedit').val(),
+      sdtteacher:$('#sdtnvedit').val(),
+      genderteacher:Array.from(radioButtonGroupGender).find((radio) => radio.checked).value
+    }
+
+    $.ajax({
+      type: "POST",
+      url: "http://localhost:8080/employee/quanly/confirmedit/hlv",
+      data:data,
+      success: function (response)
+      {
+        // console.log(response)
+        swal({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Cập nhật thành công!',
+          showConfirmButton: false,
+          timer: 1000
+        }).then(()=>{
+          // console.log(response)
+          $('.row-tenemp-'+uid).text(response.nameteacher)
+          $('.row-sdtemp-'+uid).text(response.sdtteacher)
+          $('.row-emailemp-'+uid).text(response.emailteacher)
+          $('.row-genderemp-'+uid).text(response.genderteacher)
+
+          $('#huyedit').click() //đóng modal
+        })
+      },
+      error: function (e) {
+        console.log("Lỗi")
+      }
+    });
+  }
+
+  // PHÂN TRANG
+  var items = $('.tritem');
+  console.log(items);
+  numItems = $('table.table tr:last').index()+1;
+  var perPage = 5;
+
+  items.slice(perPage).hide();
+  console.log($('#pagination-container'));
+  $('#pagination-container').pagination({
+    items: numItems,
+    itemsOnPage: perPage,
+    prevText: "&laquo;",
+    nextText: "&raquo;",
+    onPageClick: function (pageNumber) {
+      var showFrom = perPage * (pageNumber - 1);
+      var showTo = showFrom + perPage;
+      items.hide().slice(showFrom, showTo).show();
+    }
+  });
+
+  //SEARCH
+  $('#search_field').on('keyup', function() {
+    var value = $(this).val();
+    var patt = new RegExp(value, "i");
+
+    $('#fid_table').find('tr').each(function() {
+      var $table = $(this);
+
+      if (!($table.find('td').text().search(patt) >= 0)) {
+        $table.not('.t_head').hide();
+      }
+      if (($table.find('td').text().search(patt) >= 0)) {
+        $(this).show();
+      }
+
+    });
+  });
+
+
+</script>
+</body>
+</html>

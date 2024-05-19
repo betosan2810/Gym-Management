@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!--=== Coding by CodingLab | www.codinglabweb.com === -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!----======== CSS ======== -->
+  <link rel="stylesheet" href="/cssql/style.css">
+
+  <!----===== Iconscout CSS ===== -->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+  <title>Quản Lý</title>
+  <style>
+    .nav-links li:nth-child(1)
+    {
+      background-color: #a50000;
+      border-radius: 4px;
+    }
+    .nav-links li:nth-child(1) i
+    {
+      color:white
+    }
+    .nav-links li:nth-child(1) span
+    {
+      color:white
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <div class="logo-name">
+    <div class="logo-image">
+      <img src="/image/logocitygym.png" alt="">
+    </div>
+  </div>
+  <div>
+    <div th:switch="${employee.positionemp}" style="margin-top: 10px">
+      <p th:case="'Quản lý'" style="text-align: center;font-weight: 700;font-size: 30px;margin-bottom: 0px" >Quản lý</p>
+      <p th:case="'Lễ tân'" style="text-align: center;font-weight: 700;font-size: 30px;margin-bottom: 0px" >Lễ tân</p>
+    </div>
+    <p style="text-align: center;font-size: 16px;font-weight: bold;margin-bottom: 0px;color: #a50000" th:text="${employee.tenemp}"></p>
+  </div>
+
+  <head  th:replace="~{quanly/menu-item-ql.html}"></head>
+</nav>
+
+<section class="dashboard">
+  <div class="top">
+    <i class="uil uil-bars sidebar-toggle"></i>
+    <div class="search-box">
+      <i class="uil uil-search"></i>
+      <input type="text" placeholder="Search here...">
+    </div>
+    <img src="https://scontent.fsgn9-1.fna.fbcdn.net/v/t39.30808-1/275672436_666409987901352_5811510392181224482_n.jpg?stp=dst-jpg_s320x320&_nc_cat=106&ccb=1-7&_nc_sid=7206a8&_nc_ohc=ocBRQ_BSUrgAX-pfjXR&_nc_oc=AQlbhssJHqGVPuNPHzDbSIavGYqgfyaumGWDn3rBoknMWe1U4N6EMXsL5w4Pkq78rI0&_nc_ht=scontent.fsgn9-1.fna&oh=00_AfAAY9QVtbDyo48msmD-MGBELm2w-J0y1qtszJJ1S10RsQ&oe=638A42F4" alt="">
+  </div>
+
+  <div class="dash-content">
+    <div class="overview">
+      <div class="title">
+        <i class="uil uil-tachometer-fast-alt"></i>
+        <span class="text">Dashboard</span>
+      </div>
+
+<!--      <div class="boxes">-->
+<!--        <div class="box box1">-->
+<!--          <i class="uil uil-thumbs-up"></i>-->
+<!--          <span class="text">Total Likes</span>-->
+<!--          <span class="number">50,120</span>-->
+<!--        </div>-->
+<!--        <div class="box box2">-->
+<!--          <i class="uil uil-comments"></i>-->
+<!--          <span class="text">Comments</span>-->
+<!--          <span class="number">20,120</span>-->
+<!--        </div>-->
+<!--        <div class="box box3">-->
+<!--          <i class="uil uil-share"></i>-->
+<!--          <span class="text">Total Share</span>-->
+<!--          <span class="number">10,120</span>-->
+<!--        </div>-->
+<!--      </div>-->
+    </div>
+
+    <div class="activity">
+      <div class="title">
+        <i class="uil uil-clock-three"></i>
+        <span class="text">Recent Activity</span>
+      </div>
+
+      <div class="activity-data">
+        <div th:if="${employee.positionemp}=='Quản lý'" th:replace="~{quanly/chart2.html}"></div>
+<!--        <div th:if="${employee.positionemp}=='Quản lý'" th:replace="~{quanly/chart.html}"></div>-->
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="/jsql/script.js"></script>
+</body>
+</html>

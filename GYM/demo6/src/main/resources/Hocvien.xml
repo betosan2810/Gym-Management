@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                 version="3.0">
+
+    <entity class="com.example.demo.model.Hocvien">
+        <table name="hocvien" schema="gym" catalog=""/>
+        <attributes>
+            <id name="stt">
+                <column name="stt" precision="255"/>
+            </id>
+            <basic name="mahocvien">
+                <column name="mahocvien"/>
+            </basic>
+            <basic name="tenhocvien">
+                <column name="tenhocvien"/>
+            </basic>
+            <basic name="bomondk">
+                <column name="bomondk"/>
+            </basic>
+            <basic name="thoigiandk">
+                <column name="thoigiandk"/>
+            </basic>
+            <basic name="thoigianketthuc">
+                <column name="thoigianketthuc"/>
+            </basic>
+            <basic name="createdkhocvien">
+                <column name="createdkhocvien" precision="-1"/>
+            </basic>
+        </attributes>
+    </entity>
+</entity-mappings>

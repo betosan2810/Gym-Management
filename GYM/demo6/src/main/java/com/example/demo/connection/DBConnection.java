@@ -6,25 +6,20 @@ import java.sql.SQLException;
 
 public class DBConnection {
 
-
-    public static Connection getConnection()
-    {
-        String url = "jdbc:mysql://localhost:3306/gym";
+    public static Connection getConnection() {
+        String url = "jdbc:mysql://localhost:3307/gym";
         String user = "root";
-        String password = "";
+        String password = "1234";
         Connection conn = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
             conn = DriverManager.getConnection(url, user, password);
             return conn;
-        }catch (ClassNotFoundException e)
-        {
+        } catch (ClassNotFoundException e) {
 
-        }catch (SQLException throwables)
-        {
+        } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }
-        finally {
+        } finally {
             return conn;
         }
     }

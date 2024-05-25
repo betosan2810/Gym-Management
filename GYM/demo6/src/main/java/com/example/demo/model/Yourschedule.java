@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 public class Yourschedule {
@@ -35,7 +36,7 @@ public class Yourschedule {
     private Integer resource;
     @Basic
     @Column(name = "timecheck", nullable = true)
-    private Timestamp timecheck;
+    private LocalDateTime timecheck;
 
     public int getStt() {
         return stt;
@@ -109,11 +110,11 @@ public class Yourschedule {
         this.resource = resource;
     }
 
-    public Timestamp getTimecheck() {
+    public LocalDateTime getTimecheck() {
         return timecheck;
     }
 
-    public void setTimecheck(Timestamp timecheck) {
+    public void setTimecheck(LocalDateTime timecheck) {
         this.timecheck = timecheck;
     }
 }

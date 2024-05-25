@@ -11,7 +11,7 @@ public class DBConnection {
     {
         String url = "jdbc:mysql://localhost:3306/gym";
         String user = "root";
-        String password = "";
+        String password = "Kien1234@";
         Connection conn = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();

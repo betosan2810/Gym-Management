@@ -4,155 +4,613 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <link rel="shortcut icon" href="https://cali.vn/themes/cfyc/assets/static/favicon/favicon.svg">
     <script>
-        // Ignore this in your implementation
         window.isMbscDemo = true;
     </script>
+    <title>
+        QUẢN LÝ LỊCH TẬP
+    </title>
 
-    <title>Lịch tập của bạn</title>
-
-    <!-- Mobiscroll JS and CSS Includes -->
-    <link rel="stylesheet" href="/yourschedule/css/mobiscroll.javascript.min.css">
-    <script src="/yourschedule/js/mobiscroll.javascript.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <link rel="stylesheet" href="/xeplich/css/mobiscroll.jquery.min.css">
+    <script src="/xeplich/js/mobiscroll.jquery.min.js"></script>
 
     <style type="text/css">
-        /* CSS styles */
-    </style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
 
+        body,
+        html {
+            height: 100%;
+        }
+
+        .event-color-c {
+            display: flex;
+            margin: 16px;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .event-color-label {
+            flex: 1 0 auto;
+        }
+
+        .event-color {
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            margin-right: 10px;
+            margin-left: 240px;
+            background: #5ac8fa;
+        }
+
+        .crud-color-row {
+            display: flex;
+            justify-content: center;
+            margin: 5px;
+        }
+
+        .crud-color-c {
+            padding: 3px;
+            margin: 2px;
+        }
+
+        .crud-color {
+            position: relative;
+            min-width: 46px;
+            min-height: 46px;
+            margin: 2px;
+            cursor: pointer;
+            border-radius: 23px;
+            background: #5ac8fa;
+        }
+
+        .crud-color-c.selected,
+        .crud-color-c:hover {
+            box-shadow: inset 0 0 0 3px #007bff;
+            border-radius: 48px;
+        }
+
+        .crud-color:before {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -10px;
+            margin-left: -10px;
+            color: #f7f7f7;
+            font-size: 20px;
+            text-shadow: 0 0 3px #000;
+            display: none;
+        }
+
+        .crud-color-c.selected .crud-color:before {
+            display: block;
+        }
+        .mbsc-textfield-inner-inline {
+            padding-bottom: 0px !important;
+        }
+        .div-hlv {
+            padding: 16px 16px;
+            background-color: white;
+            font-family: -apple-system,Segoe UI,Roboto,sans-serif;
+            font-size: 16px;
+            font-weight: 400;"
+        }
+        #chon-hlv-day {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+        }
+    </style>
 </head>
 
 <body>
-
-<div mbsc-page class="demo-custom-event-tooltip">
+<div mbsc-page class="demo-create-read-update-delete-CRUD" style="padding: 0px 15px">
+    <h3 style="text-align: center;font-weight: bold">QUẢN LÝ LỊCH TẬP</h3>
     <div style="height:100%">
-        <div id="custom-event-tooltip-popup" class="md-tooltip">
-            <!-- Tooltip content -->
+        <div id="demo-add-delete-event"></div>
+
+        <div style="display: none">
+            <div id="demo-add-popup">
+                <div class="mbsc-form-group">
+                    <label>
+                        Huấn luyện viên
+                        <input mbsc-input id="event-coach">
+                    </label>
+                    <label>
+                        Bộ môn
+                        <input mbsc-input id="event-title">
+                    </label>
+                    <label>
+                        Phòng tập
+                        <textarea mbsc-textarea id="event-desc"></textarea>
+                    </label>
+                    <label>
+                        Trạng thái
+                        <select mbsc-select id="event-status">
+                            <option value="false">Chưa xác nhận</option>
+                            <option value="true">Đã xác nhận</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="mbsc-form-group">
+                    <label>
+                        All-day
+                        <input mbsc-switch id="event-all-day" type="checkbox" />
+                    </label>
+                    <label>
+                        Starts
+                        <input mbsc-input id="start-input" />
+                    </label>
+                    <label>
+                        Ends
+                        <input mbsc-input id="end-input" />
+                    </label>
+                    <div id="event-date"></div>
+                    <div id="event-color-picker" class="event-color-c">
+                        <div class="event-color-label">Color</div>
+                        <div id="event-color-cont">
+                            <div id="event-color" class="event-color"></div>
+                        </div>
+                    </div>
+                    <label>
+                        Show as busy
+                        <input id="event-status-busy" mbsc-segmented type="radio" name="event-status-busy-free" value="busy">
+                    </label>
+                    <label>
+                        Show as free
+                        <input id="event-status-free" mbsc-segmented type="radio" name="event-status-busy-free" value="free">
+                    </label>
+                    <div class="mbsc-button-group">
+                        <button class="mbsc-button-block" id="event-delete" mbsc-button data-color="danger" data-variant="outline">Xóa sự kiện</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="demo-event-color">
+                <div class="crud-color-row">
+                    <div class="crud-color-c" data-value="#ffeb3c">
+                        <div class="crud-color mbsc-icon mbsc-font-icon mbsc-icon-material-check" style="background:#ffeb3c"></div>
+                    </div>
+                    <div class="crud-color-c" data-value="#ff9900">
+                        <div class="crud-color mbsc-icon mbsc-font-icon mbsc-icon-material-check" style="background:#ff9900"></div>
+                    </div>
+                    <div class="crud-color-c" data-value="#f44437">
+                        <div class="crud-color mbsc-icon mbsc-font-icon mbsc-icon-material-check" style="background:#f44437"></div>
+                    </div>
+                    <div class="crud-color-c" data-value="#ea1e63">
+                        <div class="crud-color mbsc-icon mbsc-font-icon mbsc-icon-material-check" style="background:#ea1e63"></div>
+                    </div>
+                    <div class="crud-color-c" data-value="#9c26b0">
+                        <div class="crud-color mbsc-icon mbsc-font-icon mbsc-icon-material-check" style="background:#9c26b0"></div>
+                    </div>
+                </div>
+                <div class="crud-color-row">
+                    <div class="crud-color-c" data-value="#3f51b5">
+                        <div class="crud-color mbsc-icon mbsc-font-icon mbsc-icon-material-check" style="background:#3f51b5"></div>
+                    </div>
+                    <div class="crud-color-c" data-value="">
+                        <div class="crud-color mbsc-icon mbsc-font-icon mbsc-icon-material-check"></div>
+                    </div>
+                    <div class="crud-color-c" data-value="#009788">
+                        <div class="crud-color mbsc-icon mbsc-font-icon mbsc-icon-material-check" style="background:#009788"></div>
+                    </div>
+                    <div class="crud-color-c" data-value="#4baf4f">
+                        <div class="crud-color mbsc-icon mbsc-font-icon mbsc-icon-material-check" style="background:#4baf4f"></div>
+                    </div>
+                    <div class="crud-color-c" data-value="#7e5d4e">
+                        <div class="crud-color mbsc-icon mbsc-font-icon mbsc-icon-material-check" style="background:#7e5d4e"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="demo-custom-event-tooltip"></div>
     </div>
 </div>
 
 <script th:inline="javascript">
     /*<![CDATA[*/
-    // Truyền dữ liệu từ bảng yourschedule vào biến yourschedule
     var yourschedule = /*[[${yourschedule}]]*/ [];
-    var nameaccount = /*[[${nameaccount}]]*/ "nameaccount";
-    var roleaccount = /*[[${roleaccount}]]*/ false; // Đảm bảo giá trị là true hoặc false
-    /*]]>*/
+    $(document).ready(function() {
+        var idkhachhang = window.location.pathname.split('/').pop(); // Lấy idkhachhang từ URL
+        console.log("ID Khach Hang: ", idkhachhang);
 
-    mobiscroll.setOptions({
-        locale: mobiscroll.localeEn,
-        theme: 'ios',
-        themeVariant: 'light'
-    });
+        mobiscroll.setOptions({
+            locale: mobiscroll.localeEn,
+            theme: 'ios',
+            themeVariant: 'light'
+        });
 
-    // JavaScript code
-    (function () {
+        var oldEvent,
+            tempEvent = {},
+            deleteEvent,
+            restoreEvent,
+            colorPicker,
+            tempColor,
+            $title = $('#event-title'),
+            $description = $('#event-desc'),
+            $coach = $('#event-coach'),
+            $status = $('#event-status'),
+            $allDay = $('#event-all-day'),
+            $statusFree = $('#event-status-free'),
+            $statusBusy = $('#event-status-busy'),
+            $deleteButton = $('#event-delete'),
+            $color = $('#event-color'),
+            datePickerResponsive = {
+                medium: {
+                    controls: ['calendar'],
+                    touchUi: false
+                }
+            },
+            datetimePickerResponsive = {
+                medium: {
+                    controls: ['calendar', 'time'],
+                    touchUi: false
+                }
+            },
+            now = new Date();
 
-        // Function to open tooltip
-        function openTooltip(args, closeOption) {
-            // Code for opening tooltip
+        function createAddPopup(elm) {
+            $deleteButton.hide();
+            deleteEvent = true;
+            restoreEvent = false;
+
+            popup.setOptions({
+                headerText: 'Thêm Lịch Tập',
+                buttons: ['cancel', {
+                    text: 'Add',
+                    keyCode: 'enter',
+                    handler: function () {
+                        let datapass = {
+                            idkhachhang: idkhachhang,
+                            title: $title.val(),
+                            location: $description.val(),
+                            allday: $allDay.prop('checked'),
+                            start: formatTimeToUpDatabase(document.getElementById('start-input').value),
+                            end: formatTimeToUpDatabase(document.getElementById('end-input').value),
+                            reason: $coach.val(),
+                            confirmed: $status.val(), // Trường confirmed là chuỗi
+                            resource: 1,
+                            timecheck: new Date().toISOString()
+                        };
+
+                        if (idkhachhang && $title.val() && $description.val()) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/employee/quanly/security/api/yourschedule/add",
+                                data: JSON.stringify(datapass),
+                                contentType: 'application/json',
+                                success: function (data) {
+                                    console.log("Thêm lịch tập thành công");
+                                    datapass.stt = data.stt; // Cập nhật ID từ server phản hồi
+                                    yourschedule.push(datapass);
+                                    calendar.setEvents(yourschedule);
+                                },
+                                error: function (e) {
+                                    console.log("Lỗi khi thêm lịch tập", e);
+                                }
+                            });
+                        } else {
+                            console.error("Dữ liệu không đầy đủ: idkhachhang, title hoặc description bị thiếu");
+                        }
+
+                        popup.close();
+                    },
+                    cssClass: 'mbsc-popup-button-primary'
+                }]
+            });
+
+            $title.mobiscroll('getInst').value = '';
+            $description.mobiscroll('getInst').value = '';
+            $coach.mobiscroll('getInst').value = '';
+            $status.mobiscroll('getInst').value = 'false';
+            $allDay.mobiscroll('getInst').checked = true;
+            range.setVal([new Date(), new Date()]);
+            selectColor('', true);
+
+            popup.setOptions({ anchor: elm });
+            popup.open();
         }
 
-        var formatDate = mobiscroll.util.datetime.formatDate;
-        var doctors = [{
-            id: 1,
-            name: nameaccount,
-            color: '#b33d3d'
-        }];
-        var currentEvent;
-        var timer;
-        var tooltip = document.getElementById('custom-event-tooltip-popup');
-        var deleteButton = document.getElementById('tooltip-event-delete');
-        var fileButton = document.getElementById('tooltip-event-view');
-        var statusButton = document.getElementById('tooltip-event-status');
-        var header = document.getElementById('tooltip-event-header');
-        var data = document.getElementById('tooltip-event-name-age');
-        var time = document.getElementById('tooltip-event-time');
-        var status = document.getElementById('tooltip-event-title');
-        var reason = document.getElementById('tooltip-event-reason');
-        var loc = document.getElementById('tooltip-event-location');
+        function createEditPopup(args) {
+            var ev = args.event;
+            $deleteButton.show();
+            deleteEvent = false;
+            restoreEvent = true;
 
-        var calendar = mobiscroll.eventcalendar('#demo-custom-event-tooltip', {
-            view: {
-                schedule: {
-                    type: 'week',
-                    startDay: 0,
-                    endDay: 9,
-                    startTime: '05:00',
-                    endTime: '22:00',
-                    allDay: false
-                }
-            },
-            resources: doctors,
-            // Dữ liệu từ bảng yourschedule
-            data: yourschedule,
-            clickToCreate: false,
-            dragToCreate: false,
-            showEventTooltip: false,
-            onEventHoverIn: function (args) {
-                openTooltip(args, false);
-            },
-            onEventHoverOut: function () {
-                if (!timer) {
-                    timer = setTimeout(function () {
-                        tooltip.close();
-                    }, 200);
-                }
-            },
-            onEventClick: function (args) {
-                if (!tooltip.isVisible()) {
-                    openTooltip(args, true);
-                }
-            }
-        });
+            popup.setOptions({
+                headerText: 'Sửa Lịch Tập',
+                buttons: ['cancel', {
+                    text: 'Save',
+                    keyCode: 'enter',
+                    handler: function () {
+                        var date = range.getVal();
+                        var eventToSave = {
+                            stt: ev.id,
+                            idkhachhang: idkhachhang,
+                            title: $title.val(),
+                            location: $description.val(),
+                            allday: $allDay.mobiscroll('getInst').checked,
+                            start: formatTimeToUpDatabase(date[0]),
+                            end: formatTimeToUpDatabase(date[1]),
+                            reason: $coach.val(),
+                            confirmed: $status.val(), // Trường confirmed là chuỗi
+                            resource: 1,
+                            timecheck: new Date().toISOString()
+                        };
 
-        // Tooltip popup configuration
-        var tooltip = mobiscroll.popup('#custom-event-tooltip-popup', {
-            display: 'anchored',
-            touchUi: false,
-            showOverlay: false,
-            contentPadding: false,
-            closeOnOverlayClick: false,
-            width: 350,
-            onInit: function () {
-                tooltip.addEventListener('mouseenter', function (e) {
-                    if (timer) {
-                        clearTimeout(timer);
-                        timer = null;
-                    }
-                });
+                        console.log("Updating event with data:", eventToSave);
 
-                tooltip.addEventListener('mouseleave', function () {
-                    timer = setTimeout(function () {
-                        tooltip.close();
-                    }, 200);
-                });
-            }
-        });
+                        $.ajax({
+                            type: "PUT",
+                            url: "/employee/quanly/security/api/yourschedule/update",
+                            data: JSON.stringify(eventToSave),
+                            contentType: 'application/json',
+                            success: function (response) {
+                                console.log("Cập nhật lịch tập thành công");
+                                yourschedule = yourschedule.map(event => event.stt === eventToSave.stt ? eventToSave : event);
+                                calendar.setEvents(yourschedule);
+                                mobiscroll.snackbar({
+                                    message: 'Cập nhật lịch tập thành công',
+                                    button: {
+                                        action: function () {},
+                                        text: 'OK'
+                                    }
+                                });
+                                popup.close(); // Đảm bảo popup đóng lại sau khi lưu thành công
+                            },
+                            error: function (e) {
+                                console.log("Lỗi khi cập nhật lịch tập", e);
+                                mobiscroll.snackbar({
+                                    message: 'Lỗi khi cập nhật lịch tập: ' + e.responseText,
+                                    button: {
+                                        action: function () {},
+                                        text: 'OK'
+                                    }
+                                });
+                            }
+                        });
 
-        // Xử lý sự kiện xóa
-        deleteButton.addEventListener('click', function () {
-            if (roleaccount) { // Kiểm tra vai trò người dùng
-                calendar.removeEvent(currentEvent);
-                mobiscroll.toast({
-                    message: 'Appointment deleted'
-                });
+                        restoreEvent = false;
+                    },
+                    cssClass: 'mbsc-popup-button-primary'
+                }]
+            });
+
+            $title.mobiscroll('getInst').value = ev.title || '';
+            $description.mobiscroll('getInst').value = ev.location || ''; // Sửa lỗi thiết lập trường "location"
+            $coach.mobiscroll('getInst').value = ev.reason || '';
+            $status.mobiscroll('getInst').value = ev.confirmed; // Thiết lập trường "status"
+            $allDay.mobiscroll('getInst').checked = ev.allDay || false;
+            range.setVal([new Date(ev.start), new Date(ev.end)]);
+            selectColor(ev.color, true);
+
+            if (ev.free) {
+                $statusFree.mobiscroll('getInst').checked = true;
             } else {
-                alert("Phần quyền không phù hợp");
+                $statusBusy.mobiscroll('getInst').checked = true;
             }
-            tooltip.close();
+
+            range.setOptions({
+                controls: ev.allDay ? ['date'] : ['datetime'],
+                responsive: ev.allDay ? datePickerResponsive : datetimePickerResponsive
+            });
+
+            popup.setOptions({ anchor: args.domEvent.currentTarget });
+            popup.open();
+        }
+
+        var calendar = $('#demo-add-delete-event').mobiscroll().eventcalendar({
+            clickToCreate: 'double',
+            dragToCreate: true,
+            dragToMove: true,
+            dragToResize: true,
+            view: {
+                calendar: { labels: true }
+            },
+            data: yourschedule,
+            onEventClick: function (args) {
+                oldEvent = $.extend({}, args.event);
+                tempEvent = args.event;
+                if (!popup.isVisible()) {
+                    createEditPopup(args);
+                }
+            },
+            onEventCreated: function (args) {
+                popup.close();
+                tempEvent = args.event;
+                createAddPopup(args.target);
+            },
+            onEventDeleted: function () {
+                mobiscroll.snackbar({
+                    button: {
+                        action: function () {
+                            calendar.addEvent(args.event);
+                        },
+                        text: 'Undo'
+                    },
+                    message: 'Event deleted'
+                });
+            }
+        }).mobiscroll('getInst');
+
+        var popup = $('#demo-add-popup').mobiscroll().popup({
+            display: 'bottom',
+            contentPadding: false,
+            fullScreen: true,
+            onClose: function () {
+                if (deleteEvent) {
+                    calendar.removeEvent(tempEvent);
+                } else if (restoreEvent) {
+                    calendar.updateEvent(oldEvent);
+                }
+            },
+            responsive: {
+                medium: {
+                    display: 'anchored',
+                    width: 400,
+                    fullScreen: false,
+                    touchUi: false
+                }
+            }
+        }).mobiscroll('getInst');
+
+        $title.on('input', function (ev) {
+            tempEvent.title = ev.target.value;
         });
 
-    })();
-</script>
+        $description.on('change', function (ev) {
+            tempEvent.description = ev.target.value;
+        });
 
-<script>
-    window.onload = function () {
-        // JavaScript code
-    }
+        $coach.on('change', function (ev) {
+            tempEvent.reason = ev.target.value;
+        });
+
+        $status.on('change', function (ev) {
+            tempEvent.confirmed = ev.target.value; // Trường confirmed là chuỗi
+        });
+
+        $allDay.on('change', function () {
+            var checked = this.checked;
+            range.setOptions({
+                controls: checked ? ['date'] : ['datetime'],
+                responsive: checked ? datePickerResponsive : datetimePickerResponsive
+            });
+            tempEvent.allDay = checked;
+        });
+
+        var range = $('#event-date').mobiscroll().datepicker({
+            controls: ['date'],
+            select: 'range',
+            startInput: '#start-input',
+            endInput: '#end-input',
+            showRangeLabels: false,
+            touchUi: true,
+            responsive: datePickerResponsive,
+            onChange: function (args) {
+                var date = args.value;
+                tempEvent.start = date[0];
+                tempEvent.end = date[1];
+            }
+        }).mobiscroll('getInst');
+
+        $('input[name=event-status-busy-free]').on('change', function () {
+            tempEvent.free = $statusFree.mobiscroll('getInst').checked;
+        });
+
+        $deleteButton.on('click', function () {
+            calendar.removeEvent(oldEvent);
+
+            $.ajax({
+                type: "DELETE",
+                url: "/employee/quanly/security/api/yourschedule/delete/" + oldEvent.stt,
+                contentType: 'application/json',
+                success: function (response) {
+                    console.log("Xóa lịch tập thành công");
+                    yourschedule = yourschedule.filter(event => event.stt !== oldEvent.stt);
+                    calendar.setEvents(yourschedule);
+                },
+                error: function (e) {
+                    console.log("Lỗi khi xóa lịch tập", e);
+                }
+            });
+
+            popup.close();
+
+            mobiscroll.snackbar({
+                button: {
+                    action: function () {
+                        calendar.addEvent(tempEvent);
+                    },
+                    text: 'Undo'
+                },
+                message: 'Xóa lịch tập thành công'
+            });
+        });
+
+        colorPicker = $('#demo-event-color').mobiscroll().popup({
+            display: 'bottom',
+            contentPadding: false,
+            showArrow: false,
+            showOverlay: false,
+            buttons: [
+                'cancel',
+                {
+                    text: 'Set',
+                    keyCode: 'enter',
+                    handler: function (ev) {
+                        setSelectedColor();
+                    },
+                    cssClass: 'mbsc-popup-button-primary'
+                }
+            ],
+            responsive: {
+                medium: {
+                    display: 'anchored',
+                    anchor: $('#event-color-cont')[0],
+                    buttons: {},
+                }
+            }
+        }).mobiscroll('getInst');
+
+        function selectColor(color, setColor) {
+            $('.crud-color-c').removeClass('selected');
+            $('.crud-color-c[data-value="' + color + '"]').addClass('selected');
+            if (setColor) {
+                $color.css('background', color || '');
+            }
+        }
+
+        function setSelectedColor() {
+            tempEvent.color = tempColor;
+            $color.css('background', tempColor);
+            colorPicker.close();
+        }
+
+        $('#event-color-picker').on('click', function () {
+            selectColor(tempEvent.color || '');
+            colorPicker.open();
+        });
+
+        $('.crud-color-c').on('click', function (ev) {
+            var $elm = $(ev.currentTarget);
+            tempColor = $elm.data('value');
+            selectColor(tempColor);
+            if (!colorPicker.s.buttons.length) {
+                setSelectedColor();
+            }
+        });
+
+        const formatTimeToUpDatabase = (time) => {
+            if (time.includes(' ')) {
+                let startDate = time.substring(0, time.indexOf(' ')).replaceAll('/', '-');
+                let monthDay = startDate.substring(0, startDate.indexOf('-', 3));
+                let year = startDate.substring(startDate.indexOf('-', 3) + 1);
+                let startTime = time.substring(time.indexOf(' ') + 1);
+                return year + '-' + monthDay + 'T' + convertTime12to24(startTime);
+            } else {
+                let startDate = time.replaceAll('/', '-');
+                let monthDay = startDate.substring(0, startDate.indexOf('-', 3));
+                let year = startDate.substring(startDate.indexOf('-', 3) + 1);
+                return year + '-' + monthDay;
+            }
+        };
+
+        const convertTime12to24 = (time12h) => {
+            const [time, modifier] = time12h.split(' ');
+            let [hours, minutes] = time.split(':');
+            if (hours === '12') {
+                hours = '00';
+            }
+            if (modifier === 'PM') {
+                hours = parseInt(hours, 10) + 12;
+            }
+            return `${hours}:${minutes}`;
+        };
+    });
 </script>
 </body>
-
 </html>

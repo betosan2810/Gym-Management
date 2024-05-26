@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/cssql/style.css">
+  <title>Quản Lý Thiết Bị</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
+
+    body {
+      width: 100vw;
+      min-height: 100vh;
+      background-color: white;
+    }
+
+    .nav-links-item-pt {
+      background-color: #a50000;
+      border-radius: 4px;
+    }
+
+    .nav-links-item-pt i {
+      color: white
+    }
+
+    .nav-links-item-pt span {
+      color: white !important;
+    }
+
+    #phongtap-container {
+      width: 80%;
+      float: right;
+      margin-right: 20px;
+      height: 100vh;
+      background-color: white;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    
+    td button {
+      background-color: transparent;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="logo-name">
+      <div class="logo-image">
+        <img src="https://citigym.com.vn/themes/citigym/images/logo.png" alt="">
+      </div>
+    </div>
+    <div>
+      <div th:switch="${employee.positionemp}" style="margin-top: 10px">
+        <p th:case="'Quản lý'" style="text-align: center;font-weight: 700;font-size: 30px;margin-bottom: 0px">Quản lý
+        </p>
+        <p th:case="'Lễ tân'" style="text-align: center;font-weight: 700;font-size: 30px;margin-bottom: 0px">Lễ tân</p>
+      </div>
+      <p style="text-align: center;font-size: 16px;font-weight: bold;margin-bottom: 0px;color: #a50000"
+        th:text="${employee.tenemp}"></p>
+    </div>
+
+    <head th:replace="~{/quanly/menu-item-ql}"></head>
+  </nav>
+  <main id="phongtap-container">
+    <table id="my-table">
+      <thead>
+        <tr>
+          <th>Mã thiết bị</th>
+          <th>Tên thiết bị</th>
+          <th>Hình ảnh</th>
+          <th>Loại thiết bị</th>
+          <th>Ngày mua</th>
+          <th>Số lượng</th>
+          <th>Số lượng</th>
+          <th>Tác vụ</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+  </main>
+
+  <script src="/js/quanlyphongtap.js"></script>
+</body>
+
+</html>

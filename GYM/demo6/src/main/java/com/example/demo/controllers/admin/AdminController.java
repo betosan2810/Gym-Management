@@ -135,15 +135,36 @@ public class AdminController {
             return "redirect:/employee";
     }
 
-    //TRANG QUẢN LÝ KHÁCH HÀNG
-    @GetMapping(value = {"/quanly/quanly-khachhang","/letan/quanly-khachhang"})
-    public String QuanLyKhachHang(Model model)
+    //TRANG QUẢN LÝ THIẾT BỊ
+    @GetMapping(value = {"/quanly/quanly-thietbi","/letan/quanly-thietbi"})
+    public String QuanLyThietBi(Model model)
     {
-        if (session.getAttribute("roleEmp").equals("Quản lý")||session.getAttribute("roleEmp").equals("Lễ tân"))
-        {
+        if (session.getAttribute("roleEmp").equals("Quản lý") || session.getAttribute("roleEmp").equals("Lễ tân")) {
             String id = (String) session.getAttribute("idEmp");
             model.addAttribute("employee", employeeRepository.getEmployeeByID(id));
-            model.addAttribute("dskh",khachhangRepository.findAll());
+            return "/quanly/quanlythietbi";
+        } else
+            return "redirect:/employee";
+    }
+    
+    // TRANG QUẢN LÝ PHÒNG TẬP
+    @GetMapping(value = { "/quanly/quanly-phongtap", "/letan/quanly-thietbi" })
+    public String QuanLyPhongTap(Model model) {
+        if (session.getAttribute("roleEmp").equals("Quản lý") || session.getAttribute("roleEmp").equals("Lễ tân")) {
+            String id = (String) session.getAttribute("idEmp");
+            model.addAttribute("employee", employeeRepository.getEmployeeByID(id));
+            return "/quanly/quanlyphongtap";
+        } else
+            return "redirect:/employee";
+    }
+
+
+    @GetMapping(value = { "/quanly/quanly-khachhang", "/letan/quanly-khachhang" })
+    public String QuanLyKhachHang(Model model) {
+        if (session.getAttribute("roleEmp").equals("Quản lý") || session.getAttribute("roleEmp").equals("Lễ tân")) {
+            String id = (String) session.getAttribute("idEmp");
+            model.addAttribute("employee", employeeRepository.getEmployeeByID(id));
+            model.addAttribute("dskh", khachhangRepository.findAll());
             return "/quanly/khachhangql";
         } else
             return "redirect:/employee";

@@ -4,6 +4,9 @@
     height: 30px;
     object-fit: cover;
   }
+  li a i {
+    margin-right: 10px;
+  }
 </style>
 <div class="menu-items" xmlns:th="http://www.thymeleaf.org">
   <ul class="nav-links">
@@ -78,9 +81,17 @@
     <li class="nav-links-item-tb" th:if="${employee.positionemp}=='Quản lý'">
       <a href="/employee/quanly/quanly-thietbi">
         <i
-          ><img src="https://cdn-icons-png.flaticon.com/128/1048/1048953.png"
+          ><img src="https://cdn-icons-png.flaticon.com/128/502/502128.png"
         /></i>
         <span class="link-name">Quản lý thiết bị</span>
+      </a>
+    </li>
+    <li class="nav-links-item-pt" th:if="${employee.positionemp}=='Quản lý'">
+      <a href="/employee/quanly/quanly-phongtap">
+        <i
+          ><img src="https://cdn-icons-png.flaticon.com/128/2382/2382646.png"
+        /></i>
+        <span class="link-name">Quản lý phòng tập</span>
       </a>
     </li>
     <li th:if="${employee.positionemp}=='Lễ tân'">
@@ -89,14 +100,6 @@
           ><img src="https://cdn-icons-png.flaticon.com/128/1048/1048953.png"
         /></i>
         <span class="link-name">Xem lịch HLV</span>
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <i
-          ><img src="https://cdn-icons-png.flaticon.com/128/5486/5486252.png"
-        /></i>
-        <span class="link-name">Dịch vụ</span>
       </a>
     </li>
   </ul>

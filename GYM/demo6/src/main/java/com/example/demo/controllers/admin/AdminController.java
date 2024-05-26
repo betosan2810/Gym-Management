@@ -140,6 +140,18 @@ public class AdminController {
             return "redirect:/employee";
     }
     
+    // TRANG QUẢN LÝ PHÒNG TẬP
+    @GetMapping(value = { "/quanly/quanly-phongtap", "/letan/quanly-thietbi" })
+    public String QuanLyPhongTap(Model model) {
+        if (session.getAttribute("roleEmp").equals("Quản lý") || session.getAttribute("roleEmp").equals("Lễ tân")) {
+            String id = (String) session.getAttribute("idEmp");
+            model.addAttribute("employee", employeeRepository.getEmployeeByID(id));
+            return "/quanly/quanlyphongtap";
+        } else
+            return "redirect:/employee";
+    }
+
+
     @GetMapping(value = { "/quanly/quanly-khachhang", "/letan/quanly-khachhang" })
     public String QuanLyKhachHang(Model model) {
         if (session.getAttribute("roleEmp").equals("Quản lý") || session.getAttribute("roleEmp").equals("Lễ tân")) {

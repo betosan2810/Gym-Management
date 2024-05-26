@@ -48,7 +48,7 @@ public class Print  {
             }
         }
 
-        FileOutputStream out = new FileOutputStream(new File("C:/Users/ASUS/Desktop/StaffData.xlsx"));
+        FileOutputStream out = new FileOutputStream(new File("D://StaffData.xlsx"));
 
         workbook.write(out);
         out.close();
@@ -85,7 +85,7 @@ public class Print  {
             }
         }
 
-        FileOutputStream out = new FileOutputStream(new File("C:/Users/ASUS/Desktop/CustomerData.xlsx"));
+        FileOutputStream out = new FileOutputStream(new File("D://CustomerData.xlsx"));
 
         workbook.write(out);
         out.close();
@@ -120,7 +120,7 @@ public class Print  {
             }
         }
 
-        FileOutputStream out = new FileOutputStream(new File("C:/Users/ASUS/Desktop/HLVData.xlsx"));
+        FileOutputStream out = new FileOutputStream(new File("D://HLVData.xlsx"));
 
         workbook.write(out);
         out.close();

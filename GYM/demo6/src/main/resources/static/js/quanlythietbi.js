@@ -1,3 +1,59 @@
+// delete handler
+var dclosebtn = document.getElementById('dclosebtn')
+var deletewrapper = document.querySelector('.deletewrapper')
+var dconfirmbtn = document.getElementById('dconfirmbtn')
+var dcancelbtn = document.getElementById('dcancelbtn')
+var fopenbtn = document.getElementById('fopenbtn')
+var form = document.querySelector('.addwrapper')
+var fclosebtn = document.querySelector('#fclosebtn')
+var fsubmitbtn = document.getElementById('fsubmitbtn')
+
+function toggleForm() {
+  form.classList.toggle('hide')
+}
+
+fsubmitbtn.addEventListener('click', (e) => {
+  e.preventDefault()
+  const devices = getData()
+  const deviceId = document.getElementById('ma-thiet-bi').value
+  const existingIds = devices.map(item => item.id);
+  if (existingIds.includes(deviceId)) {
+    alert("Error: ID đã tồn tại!");
+    return;
+  }
+  const deviceName = document.getElementById('ten-thiet-bi').value
+  const deviceType = document.getElementById('loai-thiet-bi').value
+  const devicePurchaseDate = document.getElementById('ngay-mua').value
+  const deviceQuantity = document.getElementById('so-luong').value
+  const deviceStatus = document.getElementById('tinh-trang').value
+  
+  const newDevice = {
+    id: deviceId,
+    name: deviceName,
+    type: deviceType,
+    purchaseDate: devicePurchaseDate,
+    quantity: deviceQuantity,
+    status: deviceStatus
+  }
+  devices.push(newDevice)
+  setData(devices)
+  deleteTable()
+  renderTable(devices)
+  toggleForm()
+})
+
+fopenbtn.addEventListener('click', toggleForm)
+
+fclosebtn.addEventListener('click', toggleForm)
+
+function toggleDelete() {
+  deletewrapper.classList.toggle('hide')
+}
+
+dclosebtn.addEventListener('click', toggleDelete)
+
+dcancelbtn.addEventListener('click', toggleDelete)
+
 const initData = [
   {
     id: "TB001",
@@ -143,8 +199,13 @@ function createTableRow(data) {
 
   deleteBtn.onclick = (e) => {
     let id = e.currentTarget.id
-    console.log(e.currentTarget)
-    removeDevice(id)
+    let deleteDeviceName = document.getElementById('delete-device-name')
+    deleteDeviceName.innerText = data.name
+    toggleDelete()
+    dconfirmbtn.onclick = () => {
+      toggleDelete()
+      removeDevice(id)
+    }
   }
   return row;
 }

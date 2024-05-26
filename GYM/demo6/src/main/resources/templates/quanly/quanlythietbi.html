@@ -20,6 +20,16 @@
   <script src="/xeplich/js/mobiscroll.jquery.min.js"></script>
   <title>Quản Lý Thiết Bị</title>
   <style>
+    h1 {
+      font-weight: bold;
+      color: antiquewhite;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      font-weight: bold;
+    }
+
     .nav-links-item-tb {
       background-color: #a50000;
       border-radius: 4px;
@@ -39,6 +49,7 @@
       margin-right: 20px;
       height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
     }
@@ -89,6 +100,153 @@
     tbody tr:hover {
       background: #014055;
     }
+
+    .deletewrapper {
+      position: fixed;
+      top: 0;
+      height: 100vh;
+      width: 100vw;
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .delete {
+      position: relative;
+      top: 35%;
+      width: 450px;
+      padding: 30px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      background: white;
+      animation: deleteShow 0.2s linear;
+    }
+
+    .dclose-section,
+    .dconfirm-section {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .dconfirm-section {
+      margin-top: 30px;
+    }
+
+    #dcancelbtn:hover,
+    #dconfirmbtn:hover,
+    #fopenbtn:hover {
+      background-color: rgb(251, 105, 129);
+    }
+
+    #dcancelbtn,
+    #dconfirmbtn {
+      position: relative;
+      width: 120px;
+      height: 40px;
+      margin: auto;
+      border: none;
+      border-radius: 10px;
+      background: rgb(251, 134, 153);
+      color: white;
+    }
+
+    #fopenbtn {
+      width: 300px;
+      height: 40px;
+      border: none;
+      border-radius: 10px;
+      background: rgb(251, 134, 153);
+      color: white;
+      font-weight: bold;
+    }
+
+    .addwrapper {
+      position: fixed;
+      top: 0;
+      height: 100vh;
+      width: 100vw;
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    form {
+      position: relative;
+      top: 5%;
+      width: 600px;
+      padding: 30px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      background: white;
+      animation: formShow 0.2s linear;
+    }
+
+    #fsubmitbtn {
+      position: relative;
+      width: 120px;
+      height: 40px;
+      margin: auto;
+      border: none;
+      border-radius: 10px;
+      background-color: rgb(251, 81, 109);
+      color: white;
+    }
+
+    @keyframes formShow {
+      from {
+        top: -200px;
+        opacity: 0;
+      }
+
+      to {
+        top: 20%;
+        opacity: 1;
+      }
+    }
+
+    .addsection {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    form input {
+      margin-bottom: 10px;
+      margin-top: 5px;
+      height: 30px;
+    }
+
+    form select {
+      margin-top: 5px;
+      margin-bottom: 40px;
+      height: 30px;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    #dclosebtn img,
+    #fclosebtn img {
+      width: 15px;
+      height: 15px;
+    }
+
+    #dclosebtn:hover,
+    #fclosebtn:hover {
+      opacity: 0.5;
+    }
+
+    @keyframes deleteShow {
+      from {
+        top: -200px;
+        opacity: 0;
+      }
+
+      to {
+        top: 35%;
+        opacity: 1;
+      }
+    }
   </style>
 </head>
 
@@ -108,9 +266,12 @@
       <p style="text-align: center;font-size: 16px;font-weight: bold;margin-bottom: 0px;color: #a50000"
         th:text="${employee.tenemp}"></p>
     </div>
+
     <head th:replace="~{/quanly/menu-item-ql}"></head>
   </nav>
   <main id="thietbi-container">
+    <h1>Quản lý thiết bị</h1>
+    <button id="fopenbtn">Thêm thiết bị mới</button>
     <table id="my-table">
       <thead>
         <tr>
@@ -129,7 +290,46 @@
     </table>
   </main>
 
+  <!-- delete form -->
+  <div class="deletewrapper hide">
+    <div class="delete">
+      <div class="dclose-section">
+        <h2>Xóa thiết bị</h2>
+        <div id="dclosebtn"><img src="https://cdn-icons-png.flaticon.com/128/1632/1632708.png" alt=""></div>
+      </div>
+      <p>Bạn có chắc muốn xóa <span id="delete-device-name"></span></p>
+      <div class="dconfirm-section">
+        <button id="dconfirmbtn">Xóa</button>
+        <button id="dcancelbtn">Quay lại</button>
+      </div>
+    </div>
+  </div>
+
   <!-- add form -->
+  <div class="addwrapper hide">
+    <form>
+      <div class="addsection">
+        <h2>Thêm thiết bị</h2>
+        <div id="fclosebtn"><img src="https://cdn-icons-png.flaticon.com/128/1632/1632708.png" alt=""></div>
+      </div>
+      <label for="ma-thiet-bi">Mã thiết bị:</label>
+      <input type="text" id="ma-thiet-bi" name="ma-thiet-bi" required>
+      <label for="ten-thiet-bi">Tên thiết bị:</label>
+      <input type="text" id="ten-thiet-bi" name="ten-thiet-bi" required>
+      <label for="loai-thiet-bi">Loại thiết bị:</label>
+      <input type="text" id="loai-thiet-bi" name="loai-thiet-bi" required>
+      <label for="ngay-mua">Ngày mua:</label>
+      <input type="date" id="ngay-mua" name="ngay-mua" required>
+      <label for="so-luong">Số lượng:</label>
+      <input type="number" id="so-luong" name="so-luong" required>
+      <label for="tinh-trang">Tình trạng:</label>
+      <select id="tinh-trang" name="tinh-trang" required>
+        <option value="Active">Active</option>
+        <option value="Maintenance">Maintenance</option>
+      </select>
+      <input type="submit" value="Thêm thiết bị" id="fsubmitbtn">
+    </form>
+  </div>
 
   <script src="/js/quanlythietbi.js"></script>
 </body>

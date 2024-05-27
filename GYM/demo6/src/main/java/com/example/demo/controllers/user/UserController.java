@@ -74,6 +74,11 @@ public class UserController {
 
     }
 
+    @GetMapping("/guiphanhoi")
+    public String GuiPhanHoi(Model model) {
+        return "/guiphanhoi";
+    }
+
     @GetMapping("/tapthu")
     public String TapThuPage(Model model)
     {

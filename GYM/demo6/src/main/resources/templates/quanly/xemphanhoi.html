@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/cssql/style.css">
+  <!-- Mobiscroll JS and CSS Includes -->
+  <link rel="stylesheet" href="/xeplich/css/mobiscroll.jquery.min.css">
+  <link rel="stylesheet" href="/cssql/style.css">
+
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="/xeplich/js/mobiscroll.jquery.min.js"></script>
+  <title>Quản Lý Thiết Bị</title>
+  <style>
+    .nav-links-item-xph {
+      background-color: #a50000;
+      border-radius: 4px;
+    }
+
+    .nav-links-item-xph i {
+      color: white
+    }
+
+    .nav-links-item-xph span {
+      color: white !important;
+    }
+
+    body {
+      background: #105469;
+      font-family: 'Open Sans', sans-serif;
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    #container {
+      padding-top: 50px;
+      width: 80%;
+      float: right;
+      margin-right: 30px;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .feedback-item {
+      min-height: 150px;
+      background-color: rgb(255, 255, 255);
+      width: 30%;
+      border-radius: 10px;
+      border: none;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+      padding: 20px;
+      text-align: center;
+    }
+
+    .feedback-item:hover {
+      background-color: rgb(254, 240, 223);
+    }
+
+    .feedback-item p {
+      margin: 10px 0;
+    }
+
+    .feedback-item .rating {
+      font-weight: bold;
+      color: #ffa500;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="logo-name">
+      <div class="logo-image">
+        <img src="https://citigym.com.vn/themes/citigym/images/logo.png" alt="">
+      </div>
+    </div>
+    <div>
+      <div th:switch="${employee.positionemp}" style="margin-top: 10px">
+        <p th:case="'Quản lý'" style="text-align: center;font-weight: 700;font-size: 30px;margin-bottom: 0px">Quản lý
+        </p>
+        <p th:case="'Lễ tân'" style="text-align: center;font-weight: 700;font-size: 30px;margin-bottom: 0px">Lễ tân</p>
+      </div>
+      <p style="text-align: center;font-size: 16px;font-weight: bold;margin-bottom: 0px;color: #a50000"
+        th:text="${employee.tenemp}"></p>
+    </div>
+
+    <head th:replace="~{/quanly/menu-item-ql}"></head>
+  </nav>
+  <div id="container">
+
+  </div>
+
+  <script src="/js/xemphanhoi.js"></script>
+</body>
+
+</html>

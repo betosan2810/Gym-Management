@@ -102,6 +102,14 @@
         <span class="link-name">Xem lịch HLV</span>
       </a>
     </li>
+    <li class="nav-links-item-xph" th:if="${employee.positionemp}=='Quản lý'">
+      <a href="/employee/quanly/xem-phan-hoi">
+        <i
+          ><img src="https://cdn-icons-png.flaticon.com/128/2728/2728285.png"
+        /></i>
+        <span class="link-name">Xem phản hồi</span>
+      </a>
+    </li>
   </ul>
 
   <ul class="logout-mode">

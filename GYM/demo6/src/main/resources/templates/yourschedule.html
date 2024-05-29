@@ -5,9 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="https://cali.vn/themes/cfyc/assets/static/favicon/favicon.svg">
+    <link rel="shortcut icon" href="https://cali.vn/themes/cfyc/assets/static/favicon/favicon.svg">
     <script>
         window.isMbscDemo = true;
     </script>
+    <title>
+        QUẢN LÝ LỊCH TẬP
+    </title>
     <title>
         QUẢN LÝ LỊCH TẬP
     </title>
@@ -15,8 +19,98 @@
     <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
     <link rel="stylesheet" href="/xeplich/css/mobiscroll.jquery.min.css">
     <script src="/xeplich/js/mobiscroll.jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <link rel="stylesheet" href="/xeplich/css/mobiscroll.jquery.min.css">
+    <script src="/xeplich/js/mobiscroll.jquery.min.js"></script>
 
     <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        body,
+        html {
+            height: 100%;
+        }
+
+        .event-color-c {
+            display: flex;
+            margin: 16px;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .event-color-label {
+            flex: 1 0 auto;
+        }
+
+        .event-color {
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            margin-right: 10px;
+            margin-left: 240px;
+            background: #5ac8fa;
+        }
+
+        .crud-color-row {
+            display: flex;
+            justify-content: center;
+            margin: 5px;
+        }
+
+        .crud-color-c {
+            padding: 3px;
+            margin: 2px;
+        }
+
+        .crud-color {
+            position: relative;
+            min-width: 46px;
+            min-height: 46px;
+            margin: 2px;
+            cursor: pointer;
+            border-radius: 23px;
+            background: #5ac8fa;
+        }
+
+        .crud-color-c.selected,
+        .crud-color-c:hover {
+            box-shadow: inset 0 0 0 3px #007bff;
+            border-radius: 48px;
+        }
+
+        .crud-color:before {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -10px;
+            margin-left: -10px;
+            color: #f7f7f7;
+            font-size: 20px;
+            text-shadow: 0 0 3px #000;
+            display: none;
+        }
+
+        .crud-color-c.selected .crud-color:before {
+            display: block;
+        }
+        .mbsc-textfield-inner-inline {
+            padding-bottom: 0px !important;
+        }
+        .div-hlv {
+            padding: 16px 16px;
+            background-color: white;
+            font-family: -apple-system,Segoe UI,Roboto,sans-serif;
+            font-size: 16px;
+            font-weight: 400;"
+        }
+        #chon-hlv-day {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+        }
         body {
             margin: 0;
             padding: 0;

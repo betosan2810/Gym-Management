@@ -2,12 +2,16 @@ package com.example.demo.controllers.admin;
 
 import com.example.demo.model.Employee;
 import com.example.demo.model.Khachhang;
+import com.example.demo.model.Yourschedule;
 import com.example.demo.print.Print;
 import com.example.demo.responsitory.*;
 import com.example.demo.services.GymService;
 import com.example.demo.services.TeacherService;
 import com.example.demo.services.XepLichService;
+import com.example.demo.services.YourScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -50,6 +54,9 @@ public class AdminController {
 
     @Autowired
     GymService gymService;
+
+    @Autowired
+    YourScheduleService yourScheduleService;
 
     //~~~~roleEmp: lấy quyền từ database: Quản lý, Lễ tân, Kế toán
 
@@ -244,6 +251,27 @@ public class AdminController {
         {
             return "redirect:/login";
         }
+    }
+
+    // Thêm lịch tập mới
+    @PostMapping(value = "/khachhang/lichtap/add")
+    public ResponseEntity<Yourschedule> addSchedule(@RequestBody Yourschedule schedule) {
+        Yourschedule newSchedule = yourScheduleService.addSchedule(schedule);
+        return new ResponseEntity<>(newSchedule, HttpStatus.CREATED);
+    }
+
+    // Sửa lịch tập
+    @PostMapping(value = "/khachhang/lichtap/update")
+    public ResponseEntity<Yourschedule> updateSchedule(@RequestBody Yourschedule schedule) {
+        Yourschedule updatedSchedule = yourScheduleService.updateSchedule(schedule);
+        return new ResponseEntity<>(updatedSchedule, HttpStatus.OK);
+    }
+
+    // Xóa lịch tập
+    @DeleteMapping(value = "/khachhang/lichtap/delete/{stt}")
+    public ResponseEntity<Void> deleteSchedule(@PathVariable int stt) {
+        yourScheduleService.deleteSchedule(stt);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     //XEM DANH SÁCH KHÁCH HÀNG TẬP THỬ

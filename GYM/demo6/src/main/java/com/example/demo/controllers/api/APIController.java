@@ -3,10 +3,7 @@ package com.example.demo.controllers.api;
 import com.example.demo.model.*;
 import com.example.demo.responsitory.*;
 
-import com.example.demo.services.EmployeeService;
-import com.example.demo.services.KhachHangService;
-import com.example.demo.services.TeacherService;
-import com.example.demo.services.XepLichService;
+import com.example.demo.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +16,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -58,7 +56,8 @@ public class APIController {
 
     @Autowired GymRepository gymRepository;
 
-
+    @Autowired
+    private YourScheduleService yourScheduleService;
 
 
     @GetMapping(value = {"security/api/employee"})
@@ -184,6 +183,34 @@ public class APIController {
     public ResponseEntity getYourSchedule()
     {
         return new ResponseEntity<>(yourScheduleRepository.findAll(),HttpStatus.OK);
+    }
+
+    // Thêm lịch tập mới
+    @PostMapping("/security/api/yourschedule/add")
+    public ResponseEntity<Yourschedule> addSchedule(@RequestBody Yourschedule schedule) {
+        Yourschedule newSchedule = yourScheduleService.addSchedule(schedule);
+        return new ResponseEntity<>(newSchedule, HttpStatus.CREATED);
+    }
+
+    // Sửa lịch tập
+    @PutMapping("/security/api/yourschedule/update")
+    public ResponseEntity<Yourschedule> updateSchedule(@RequestBody Yourschedule schedule) {
+        Yourschedule updatedSchedule = yourScheduleService.updateSchedule(schedule);
+        return new ResponseEntity<>(updatedSchedule, HttpStatus.OK);
+    }
+
+    // Xóa lịch tập
+    @DeleteMapping("/security/api/yourschedule/delete/{stt}")
+    public ResponseEntity<Void> deleteSchedule(@PathVariable int stt) {
+        yourScheduleService.deleteSchedule(stt);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    // Lấy danh sách lịch tập theo ID khách hàng
+    @GetMapping("/security/api/yourschedule/{idkhachhang}")
+    public ResponseEntity<List<Yourschedule>> getSchedulesByCustomerId(@PathVariable String idkhachhang) {
+        List<Yourschedule> schedules = yourScheduleService.getSchedulesByCustomerId(idkhachhang);
+        return new ResponseEntity<>(schedules, HttpStatus.OK);
     }
 
     //XÓA KHÁCH HÀNG
